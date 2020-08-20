@@ -13,8 +13,8 @@ class CreateMusicServicesTables extends Migration
      */
     public function up()
     {
-        $tableNames = config('permission.table_names');
-        // $columnNames = config('permission.column_names');
+        $tableNames = config('music-services.table_names');
+        // $columnNames = config('music-services.column_names');
 
         if (empty($tableNames)) {
             throw new \Exception('Error: config/music-services.php not loaded. Run [php artisan config:clear] and try again.');
