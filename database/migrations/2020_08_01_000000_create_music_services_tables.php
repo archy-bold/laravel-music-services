@@ -115,7 +115,7 @@ class CreateMusicServicesTables extends Migration
             $table->string('vendor', 25);
             $table->timestamps();
 
-            $table->unique(['type', 'vendor', 'vendor_track_id'], $tableNames['track_information'] . '_vendor_index');
+            $table->unique(['type', 'vendor', 'track_id'], $tableNames['track_information'] . '_vendor_index');
         });
     }
 
