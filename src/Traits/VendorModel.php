@@ -30,13 +30,13 @@ trait VendorModel
         if ($this->vendor == 'spotify' && !is_null($this->vendor_id)) {
             $class = get_class($this);
             switch ($class) {
-                case VendorAlbum::class:
+                case Album::class:
                     return 'spotify:album:' . $this->vendor_id;
-                case VendorPlaylist::class:
+                case Playlist::class:
                     return 'spotify:playlist:' . $this->vendor_id;
-                case VendorTrack::class:
+                case Track::class:
                     return 'spotify:track:' . $this->vendor_id;
-                case VendorUser::class:
+                case User::class:
                     return 'spotify:user:' . $this->vendor_id;
             }
         }

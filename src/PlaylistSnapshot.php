@@ -31,11 +31,9 @@ class PlaylistSnapshot extends Model
         'playlist_id' => 'integer',
     ];
 
-    public function __construct(array $attributes = [])
+    public function getTable()
     {
-        parent::__construct($attributes);
-
-        $this->setTable(config('music-services.tables.playlist_snapshots'));
+        return config('music-services.table_names.playlist_snapshots', parent::getTable());
     }
 
     /**
@@ -45,7 +43,7 @@ class PlaylistSnapshot extends Model
     {
         // Get the IDs of all latest snapshots.
         return $query->whereIn('id', function ($query) {
-            return $query->from(with(new VendorPlaylist)->getTable() . ' AS p')
+            return $query->from(with(new Playlist)->getTable() . ' AS p')
                 ->selectSub(function ($query) {
                     $query->select('id')
                         ->from(with(new PlaylistSnapshot)->getTable())
@@ -57,13 +55,13 @@ class PlaylistSnapshot extends Model
     }
 
     /**
-     * Get the vendorPlaylist for this entity.
+     * Get the playlist for this entity.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function vendorPlaylist()
+    public function playlist()
     {
-        return $this->belongsTo(VendorPlaylist::class);
+        return $this->belongsTo(Playlist::class);
     }
 
     /**
@@ -74,10 +72,10 @@ class PlaylistSnapshot extends Model
     public function tracks()
     {
         return $this->belongsToMany(
-            VendorTrack::class,
-            'playlist_snapshot_vendor_track',
+            Track::class,
+            config('music-services.table_names.playlist_snapshot_track_pivot'),
             'playlist_snapshot_id',
-            'vendor_track_id'
+            'track_id'
         )->using(PlaylistTrackPivot::class)
             ->withPivot('order', 'added_at', 'meta')
             ->orderBy('order');

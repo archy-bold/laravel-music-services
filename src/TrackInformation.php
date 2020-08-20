@@ -43,11 +43,9 @@ class TrackInformation extends Model
         'duration_s',
     ];
 
-    public function __construct(array $attributes = [])
+    public function getTable()
     {
-        parent::__construct($attributes);
-
-        $this->setTable(config('music-services.tables.track_information'));
+        return config('music-services.table_names.track_information', parent::getTable());
     }
 
     /**

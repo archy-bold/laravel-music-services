@@ -31,11 +31,9 @@ class User extends Model
         'meta' => 'array',
     ];
 
-    public function __construct(array $attributes = [])
+    public function getTable()
     {
-        parent::__construct($attributes);
-
-        $this->setTable(config('music-services.tables.users'));
+        return config('music-services.table_names.users', parent::getTable());
     }
 
     /**

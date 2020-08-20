@@ -35,11 +35,9 @@ class Playlist extends Model
         'meta' => 'array',
     ];
 
-    public function __construct(array $attributes = [])
+    public function getTable()
     {
-        parent::__construct($attributes);
-
-        $this->setTable(config('music-services.tables.playlists'));
+        return config('music-services.table_names.playlists', parent::getTable());
     }
 
     /**

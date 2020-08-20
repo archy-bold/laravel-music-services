@@ -44,11 +44,9 @@ class Album extends Model
         'release_date',
     ];
 
-    public function __construct(array $attributes = [])
+    public function getTable()
     {
-        parent::__construct($attributes);
-
-        $this->setTable(config('music-services.tables.albums'));
+        return config('music-services.table_names.albums', parent::getTable());
     }
 
     /**

@@ -19,6 +19,7 @@ class MusicServicesServiceProvider extends ServiceProvider
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'archy_bold');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'archy_bold');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadFactoriesFrom(__DIR__.'/../database/factories');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         // Publishing is only necessary when using the CLI.

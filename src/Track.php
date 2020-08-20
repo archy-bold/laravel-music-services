@@ -45,11 +45,9 @@ class Track extends Model
         'uri',
     ];
 
-    public function __construct(array $attributes = [])
+    public function getTable()
     {
-        parent::__construct($attributes);
-
-        $this->setTable(config('music-services.tables.tracks'));
+        return config('music-services.table_names.tracks', parent::getTable());
     }
 
     /**
@@ -70,8 +68,10 @@ class Track extends Model
      */
     public function playlistSnapshots()
     {
-        return $this->belongsToMany(PlaylistSnapshot::class)
-            ->using(PlaylistTrackPivot::class)
+        return $this->belongsToMany(
+            PlaylistSnapshot::class,
+            config('music-services.table_names.playlist_snapshot_track_pivot'),
+        )->using(PlaylistTrackPivot::class)
             ->withPivot('order', 'added_at', 'meta');
     }
 

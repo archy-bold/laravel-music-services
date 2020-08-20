@@ -21,7 +21,7 @@ class CreateMusicServicesTables extends Migration
         }
 
         Schema::create($tableNames['users'], function (Blueprint $table) use ($tableNames) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->json('meta')->nullable();
             $table->string('url')->nullable();
@@ -33,7 +33,7 @@ class CreateMusicServicesTables extends Migration
         });
 
         Schema::create($tableNames['playlists'], function (Blueprint $table) use ($tableNames) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->text('description')->nullable();
             $table->boolean('public')->nullable();
@@ -41,7 +41,7 @@ class CreateMusicServicesTables extends Migration
             $table->string('url')->nullable();
             $table->string('vendor', 25);
             $table->string('vendor_id', 100)->nullable();
-            $table->foreignId('owner_id')
+            $table->unsignedBigInteger('owner_id')
                 ->nullable()
                 ->constrained($tableNames['users'])
                 ->onDelete('cascade');
@@ -51,17 +51,17 @@ class CreateMusicServicesTables extends Migration
         });
 
         Schema::create($tableNames['playlist_snapshots'], function (Blueprint $table) use ($tableNames) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedInteger('num_followers')->nullable();
             $table->json('meta')->nullable();
-            $table->foreignId('playlist_id')
+            $table->unsignedBigInteger('playlist_id')
                 ->constrained($tableNames['playlists'])
                 ->onDelete('cascade');
             $table->timestamps();
         });
 
         Schema::create($tableNames['albums'], function (Blueprint $table) use ($tableNames) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->date('release_date');
             $table->string('release_date_str', 10);
@@ -76,7 +76,7 @@ class CreateMusicServicesTables extends Migration
         });
 
         Schema::create($tableNames['tracks'], function (Blueprint $table) use ($tableNames) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('title');
             $table->text('artists');
             $table->string('isrc')->nullable();
@@ -84,7 +84,7 @@ class CreateMusicServicesTables extends Migration
             $table->string('url')->nullable();
             $table->string('vendor', 25);
             $table->string('vendor_id', 100)->nullable();
-            $table->foreignId('album_id')
+            $table->unsignedBigInteger('album_id')
                 ->constrained($tableNames['albums'])
                 ->onDelete('cascade');
             $table->timestamps();
@@ -93,10 +93,10 @@ class CreateMusicServicesTables extends Migration
         });
 
         Schema::create($tableNames['playlist_snapshot_track_pivot'], function (Blueprint $table) use ($tableNames) {
-            $table->foreignId('playlist_snapshot_id')
+            $table->unsignedBigInteger('playlist_snapshot_id')
                 ->constrained($tableNames['playlist_snapshots'])
                 ->onDelete('cascade');
-            $table->foreignId('track_id')
+            $table->unsignedBigInteger('track_id')
                 ->constrained($tableNames['tracks'])
                 ->onDelete('cascade');
             $table->unsignedInteger('order')->nullable();
@@ -105,9 +105,9 @@ class CreateMusicServicesTables extends Migration
         });
 
         Schema::create($tableNames['track_information'], function (Blueprint $table) use ($tableNames) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('type', 20);
-            $table->foreignId('track_id')
+            $table->unsignedBigInteger('track_id')
                 ->nullable()
                 ->constrained($tableNames['tracks'])
                 ->onDelete('set null');
