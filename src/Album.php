@@ -5,7 +5,7 @@ namespace ArchyBold\LaravelMusicServices;
 use ArchyBold\LaravelMusicServices\Traits\VendorModel;
 use Illuminate\Database\Eloquent\Model;
 
-class VendorAlbum extends Model
+class Album extends Model
 {
     use VendorModel;
 
@@ -44,6 +44,13 @@ class VendorAlbum extends Model
         'release_date',
     ];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(config('music-services.tables.albums'));
+    }
+
     /**
      * Get the tracks for this entity.
      *
@@ -51,6 +58,6 @@ class VendorAlbum extends Model
      */
     public function tracks()
     {
-        return $this->hasMany(VendorTrack::class, 'album_id');
+        return $this->hasMany(Track::class);
     }
 }

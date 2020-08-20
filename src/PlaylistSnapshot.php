@@ -16,7 +16,7 @@ class PlaylistSnapshot extends Model
     protected $fillable = [
         'num_followers',
         'meta',
-        'vendor_playlist_id',
+        'playlist_id',
         'created_at',
     ];
 
@@ -28,8 +28,15 @@ class PlaylistSnapshot extends Model
     protected $casts = [
         'num_followers' => 'integer',
         'meta' => 'array',
-        'vendor_playlist_id' => 'integer',
+        'playlist_id' => 'integer',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(config('music-services.tables.playlist_snapshots'));
+    }
 
     /**
      * Scope to get the current snapshots.
@@ -42,7 +49,7 @@ class PlaylistSnapshot extends Model
                 ->selectSub(function ($query) {
                     $query->select('id')
                         ->from(with(new PlaylistSnapshot)->getTable())
-                        ->where('vendor_playlist_id', DB::raw('p.id'))
+                        ->where('playlist_id', DB::raw('p.id'))
                         ->latest()
                         ->limit(1);
                 }, 'plalist_snapshot_id');

@@ -2,10 +2,10 @@
 
 namespace ArchyBold\LaravelMusicServices\Traits;
 
-use ArchyBold\LaravelMusicServices\VendorAlbum;
-use ArchyBold\LaravelMusicServices\VendorPlaylist;
-use ArchyBold\LaravelMusicServices\VendorTrack;
-use ArchyBold\LaravelMusicServices\VendorUser;
+use ArchyBold\LaravelMusicServices\Album;
+use ArchyBold\LaravelMusicServices\Playlist;
+use ArchyBold\LaravelMusicServices\Track;
+use ArchyBold\LaravelMusicServices\User;
 
 trait VendorModel
 {

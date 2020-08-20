@@ -4,7 +4,7 @@ namespace ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent;
 
 use ArchyBold\LaravelMusicServices\TrackInformation;
 use ArchyBold\LaravelMusicServices\Repositories\Repository;
-use ArchyBold\LaravelMusicServices\VendorTrack;
+use ArchyBold\LaravelMusicServices\Track;
 use ArchyBold\LaravelMusicServices\Services\Contracts\VendorService;
 
 abstract class VendorTrackRepository extends Repository

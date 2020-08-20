@@ -5,7 +5,7 @@ namespace ArchyBold\LaravelMusicServices;
 use ArchyBold\LaravelMusicServices\Traits\VendorModel;
 use Illuminate\Database\Eloquent\Model;
 
-class VendorPlaylist extends Model
+class Playlist extends Model
 {
     use VendorModel;
 
@@ -35,6 +35,13 @@ class VendorPlaylist extends Model
         'meta' => 'array',
     ];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(config('music-services.tables.playlists'));
+    }
+
     /**
      * Get the playlist for this entity.
      *
@@ -52,7 +59,7 @@ class VendorPlaylist extends Model
      */
     public function owner()
     {
-        return $this->belongsTo(VendorUser::class);
+        return $this->belongsTo(User::class);
     }
 
     /**

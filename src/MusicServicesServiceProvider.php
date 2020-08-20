@@ -34,7 +34,7 @@ class MusicServicesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/laravel-music-services.php', 'laravel-music-services');
+        $this->mergeConfigFrom(__DIR__.'/../config/music-services.php', 'music-services');
 
         // Register the service the package provides.
         $this->bindSpotifyServices();

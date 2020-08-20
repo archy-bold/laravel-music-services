@@ -5,10 +5,9 @@ namespace ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent;
 use ArchyBold\LaravelMusicServices\PlaylistSnapshot;
 use ArchyBold\LaravelMusicServices\Repositories\Repository;
 use ArchyBold\LaravelMusicServices\Track;
-use ArchyBold\LaravelMusicServices\VendorPlaylist;
-use ArchyBold\LaravelMusicServices\VendorAlbum;
-use ArchyBold\LaravelMusicServices\VendorTrack;
-use ArchyBold\LaravelMusicServices\VendorUser;
+use ArchyBold\LaravelMusicServices\Playlist;
+use ArchyBold\LaravelMusicServices\Album;
+use ArchyBold\LaravelMusicServices\User;
 use ArchyBold\LaravelMusicServices\Services\Contracts\VendorService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -21,7 +20,7 @@ abstract class VendorPlaylistRepository extends Repository
      *
      * @var string $entity
      */
-    protected $entity = VendorPlaylist::class;
+    protected $entity = Playlist::class;
 
     /** @var VendorService */
     protected $service;
@@ -48,7 +47,7 @@ abstract class VendorPlaylistRepository extends Repository
      * Get a playlist from an external vendor, store it and return the object.
      *
      * @param string $id
-     * @return \App\VendorPlaylist
+     * @return \ArchyBold\LaravelMusicServices\Playlist
      */
     public function get($id)
     {
@@ -63,7 +62,7 @@ abstract class VendorPlaylistRepository extends Repository
     /**
      * Get a CSV representation of a playlist.
      *
-     * @param string|int|\App\VendorPlaylist $playlist
+     * @param string|int|\ArchyBold\LaravelMusicServices\Playlist $playlist
      * @param array $headers
      * @param array $columns
      * @param array $load = []
@@ -73,10 +72,10 @@ abstract class VendorPlaylistRepository extends Repository
     public function getCsv($playlist, $headers, $columns, $load = [])
     {
         if (is_numeric($playlist)) {
-            $playlist = VendorPlaylist::find($playlist);
+            $playlist = Playlist::find($playlist);
         }
         else if (is_string($playlist)) {
-            $playlist = VendorPlaylist::vendorFind($this->getVendor(), $playlist)->first();
+            $playlist = Playlist::vendorFind($this->getVendor(), $playlist)->first();
         }
 
         if (!$playlist instanceof VendorPlaylist) {
@@ -134,7 +133,7 @@ abstract class VendorPlaylistRepository extends Repository
         // If we've .got the tracks, create the snapshot.
         $vendorPlaylist = $this->service->getPlaylist($id);
         $snapshotAttrs = $this->mapVendorPlaylistToSnapshotAttributes($vendorPlaylist);
-        $snapshotAttrs['vendor_playlist_id'] = $playlist->id;
+        $snapshotAttrs['playlist_id'] = $playlist->id;
         $snapshot = PlaylistSnapshot::create($snapshotAttrs);
 
         // Then get the track attributes
@@ -240,7 +239,7 @@ abstract class VendorPlaylistRepository extends Repository
      * Function to generate the models for a vendor playlist.
      *
      * @param array $vendorPlaylist
-     * @return App\VendorPlaylist|null
+     * @return ArchyBold\LaravelMusicServices\Playlist|null
      */
     protected function createModels($vendorPlaylist, $id = null)
     {
@@ -264,11 +263,11 @@ abstract class VendorPlaylistRepository extends Repository
             if (!$id) {
                 $id = $playlistAttrs['vendor_id'];
             }
-            $playlist = VendorPlaylist::vendorFind($this->getVendor(), $id)->first();
+            $playlist = Playlist::vendorFind($this->getVendor(), $id)->first();
 
             // Now either update the existing playlist or create a new one.
             if (is_null($playlist)) {
-                $playlist = VendorPlaylist::create($playlistAttrs);
+                $playlist = Playlist::create($playlistAttrs);
             }
             else {
                 $playlist->update($playlistAttrs);

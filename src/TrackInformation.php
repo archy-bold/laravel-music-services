@@ -43,6 +43,13 @@ class TrackInformation extends Model
         'duration_s',
     ];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(config('music-services.tables.track_information'));
+    }
+
     /**
      * Scope to get the current snapshots.
      */
@@ -63,16 +70,6 @@ class TrackInformation extends Model
     public function track()
     {
         return $this->belongsTo(Track::class);
-    }
-
-    /**
-     * Get the vendorTrack for this entity.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function vendorTrack()
-    {
-        return $this->belongsTo(VendorTrack::class);
     }
 
     /**

@@ -6,7 +6,7 @@ use ArchyBold\LaravelMusicServices\Traits\VendorModel;
 use ArchyBold\LaravelMusicServices\Pivots\PlaylistTrackPivot;
 use Illuminate\Database\Eloquent\Model;
 
-class VendorTrack extends Model
+class Track extends Model
 {
     use VendorModel;
 
@@ -44,6 +44,13 @@ class VendorTrack extends Model
     protected $appends = [
         'uri',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(config('music-services.tables.tracks'));
+    }
 
     /**
      * Scope to get the tracks that are currently on playlists
@@ -85,17 +92,7 @@ class VendorTrack extends Model
      */
     public function album()
     {
-        return $this->belongsTo(VendorAlbum::class);
-    }
-
-    /**
-     * Get the track for this entity.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function track()
-    {
-        return $this->belongsTo(Track::class);
+        return $this->belongsTo(Album::class);
     }
 
     /**
