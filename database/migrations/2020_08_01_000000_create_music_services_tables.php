@@ -16,6 +16,10 @@ class CreateMusicServicesTables extends Migration
         $tableNames = config('music-services.table_names');
         // $columnNames = config('music-services.column_names');
 
+        if (config('music-services.override_migrations')) {
+            return;
+        }
+
         if (empty($tableNames)) {
             throw new \Exception('Error: config/music-services.php not loaded. Run [php artisan config:clear] and try again.');
         }

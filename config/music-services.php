@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'override_migrations' => false,
+
     'table_names' => [
         'albums' => 'lms_albums',
         'playlists' => 'lms_playlists',
