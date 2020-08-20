@@ -23,8 +23,8 @@ class SpotifyServiceTest extends TestCase
     public function test_makeService()
     {
         config([
-            'services.spotify.client_id' => 'client_id',
-            'services.spotify.client_secret' => 'client_secret',
+            'music-services.spotify.client_id' => 'client_id',
+            'music-services.spotify.client_secret' => 'client_secret',
         ]);
 
         $service = $this->app->make(SpotifyService::class);

@@ -86,8 +86,8 @@ class MusicServicesServiceProvider extends ServiceProvider
     {
         $this->app->bind(SpotifyService::class, function ($app) {
             return new SpotifyService(new \SpotifyWebAPI\Session(
-                config('services.spotify.client_id'),
-                config('services.spotify.client_secret')
+                config('music-services.spotify.client_id'),
+                config('music-services.spotify.client_secret')
             ));
         });
         $this->app->bind(SpotifyPlaylistRepository::class, function ($app) {
