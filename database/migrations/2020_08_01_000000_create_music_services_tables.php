@@ -55,7 +55,7 @@ class CreateMusicServicesTables extends Migration
             $table->unsignedInteger('num_followers')->nullable();
             $table->json('meta')->nullable();
             $table->foreignId('playlist_id')
-                ->constrained()
+                ->constrained($tableNames['playlists'])
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -93,8 +93,12 @@ class CreateMusicServicesTables extends Migration
         });
 
         Schema::create($tableNames['playlist_snapshot_track_pivot'], function (Blueprint $table) use ($tableNames) {
-            $table->foreignId('playlist_snapshot_id')->constrained()->onDelete('cascade');
-            $table->foreignId('track_id')->constrained()->onDelete('cascade');
+            $table->foreignId('playlist_snapshot_id')
+                ->constrained($tableNames['playlist_snapshots'])
+                ->onDelete('cascade');
+            $table->foreignId('track_id')
+                ->constrained($tableNames['tracks'])
+                ->onDelete('cascade');
             $table->unsignedInteger('order')->nullable();
             $table->datetime('added_at')->nullable();
             $table->json('meta')->nullable();
