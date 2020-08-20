@@ -9,7 +9,7 @@
             "homepage": "https://archybold.com"
         }
     ],
-    "homepage": "https://github.com/archy_bold/laravel-music-services",
+    "homepage": "https://github.com/archy-bold/laravel-music-services",
     "keywords": [
         "Laravel",
         "laravel-music-services",
@@ -43,7 +43,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ArchyBold\\LaravelMusicServices\\LaravelMusicServicesServiceProvider"
+                "ArchyBold\\LaravelMusicServices\\MusicServicesServiceProvider"
             ],
             "aliases": {
                 "LaravelMusicServices": "ArchyBold\\LaravelMusicServices\\Facades\\LaravelMusicServices"
