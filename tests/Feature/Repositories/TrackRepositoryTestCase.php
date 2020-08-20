@@ -6,17 +6,17 @@ use ArchyBold\LaravelMusicServices\Tests\TestCase;
 use ArchyBold\LaravelMusicServices\Tests\Traits\InteractsWithVendor;
 use ArchyBold\LaravelMusicServices\Track;
 use ArchyBold\LaravelMusicServices\TrackInformation;
-use ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent\VendorTrackRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent\TrackRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 
-abstract class VendorTrackRepositoryTestCase extends TestCase
+abstract class TrackRepositoryTestCase extends TestCase
 {
     use RefreshDatabase, InteractsWithVendor;
 
-    /** @var VendorTrackRepository */
+    /** @var TrackRepository */
     protected $repository;
     /** @var string */
     protected $vendor;

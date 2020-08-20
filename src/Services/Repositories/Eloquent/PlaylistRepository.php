@@ -13,7 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
 
-abstract class VendorPlaylistRepository extends Repository
+abstract class PlaylistRepository extends Repository
 {
     /**
      * The entity for this repository.
@@ -55,8 +55,8 @@ abstract class VendorPlaylistRepository extends Repository
         $id = $this->service->parseId($id, 'playlist');
 
         // Get the playlist and map to attributes
-        $vendorPlaylist = $this->service->getPlaylist($id);
-        return $this->createModels($vendorPlaylist, $id);
+        $playlist = $this->service->getPlaylist($id);
+        return $this->createModels($playlist, $id);
     }
 
     /**
@@ -124,20 +124,20 @@ abstract class VendorPlaylistRepository extends Repository
         }
 
         // Then get the playlist tracks
-        $vendorTracks = $this->service->getAllPlaylistTracks($id);
+        $Tracks = $this->service->getAllPlaylistTracks($id);
 
-        if (is_null($vendorTracks)) {
+        if (is_null($Tracks)) {
             return null;
         }
 
         // If we've .got the tracks, create the snapshot.
-        $vendorPlaylist = $this->service->getPlaylist($id);
-        $snapshotAttrs = $this->mapVendorPlaylistToSnapshotAttributes($vendorPlaylist);
+        $servicePlaylist = $this->service->getPlaylist($id);
+        $snapshotAttrs = $this->mapServicePlaylistToSnapshotAttributes($servicePlaylist);
         $snapshotAttrs['playlist_id'] = $playlist->id;
         $snapshot = PlaylistSnapshot::create($snapshotAttrs);
 
         // Then get the track attributes
-        $tracksAttrs = $this->mapVendorPlaylistTracksToAttributes($vendorTracks);
+        $tracksAttrs = $this->mapServicePlaylistTracksToAttributes($Tracks);
 
         // For each track, create the album, get the track and join to the snapshot
         foreach ($tracksAttrs as $i => $trackAttrs) {
@@ -168,11 +168,11 @@ abstract class VendorPlaylistRepository extends Repository
         $userId = $this->service->parseId($userId, 'user');
 
         // Get all the playlists and map to attributes
-        $vendorPlaylists = $this->service->getAllUserPlaylists($userId);
-        $vendorPlaylists = $this->mapVendorUserPlaylistsToArray($vendorPlaylists);
+        $playlists = $this->service->getAllUserPlaylists($userId);
+        $playlists = $this->mapServiceUserPlaylistsToArray($playlists);
         $models = collect();
-        foreach ($vendorPlaylists as $vendorPlaylist) {
-            $playlist = $this->createModels($vendorPlaylist);
+        foreach ($playlists as $playlist) {
+            $playlist = $this->createModels($playlist);
             if (!is_null($playlist)) {
                 $models->push($playlist);
             }
@@ -188,64 +188,64 @@ abstract class VendorPlaylistRepository extends Repository
     abstract public function getVendor();
 
     /**
-     * Maps the vendor playlist to a Playlist attributes array.
+     * Maps the service playlist to a Playlist attributes array.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return array
      */
-    abstract protected function mapVendorPlaylistToAttributes($vendorPlaylist);
+    abstract protected function mapServicePlaylistToAttributes($playlist);
 
     /**
-     * Maps the vendor playlist to a PlaylistSnapshot attributes array.
+     * Maps the service playlist to a PlaylistSnapshot attributes array.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return array
      */
-    abstract protected function mapVendorPlaylistToSnapshotAttributes($vendorPlaylist);
+    abstract protected function mapServicePlaylistToSnapshotAttributes($playlist);
 
     /**
-     * Maps the user vendor playlists to arrays.
+     * Maps the user service playlists to arrays.
      *
-     * @param array $vendorPlaylists
+     * @param array $playlists
      * @return array
      */
-    abstract protected function mapVendorUserPlaylistsToArray($vendorPlaylists);
+    abstract protected function mapServiceUserPlaylistsToArray($playlists);
 
     /**
-     * Maps the vendor playlist to a VendorUser attributes array.
+     * Maps the service playlist to a VendorUser attributes array.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return array
      */
-    abstract protected function mapVendorPlaylistToUserAttributes($vendorPlaylist);
+    abstract protected function mapServicePlaylistToUserAttributes($playlist);
 
     /**
-     * Maps the vendor playlist tracks to Vendor Track attributes arrays.
+     * Maps the service playlist tracks to Vendor Track attributes arrays.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return array
      */
-    abstract protected function mapVendorPlaylistTracksToAttributes($vendorTracks);
+    abstract protected function mapServicePlaylistTracksToAttributes($Tracks);
 
     /**
      * Get the ISRC from a vendor track.
      *
-     * @param array $vendorTrack
+     * @param array $Track
      * @return array
      */
-    abstract protected function getIsrcFromVendorTrack($vendorTrack);
+    abstract protected function getIsrcFromTrack($Track);
 
     /**
-     * Function to generate the models for a vendor playlist.
+     * Function to generate the models for a service playlist.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return ArchyBold\LaravelMusicServices\Playlist|null
      */
-    protected function createModels($vendorPlaylist, $id = null)
+    protected function createModels($playlist, $id = null)
     {
-        if (!is_null($vendorPlaylist) && !empty($vendorPlaylist)) {
+        if (!is_null($playlist) && !empty($playlist)) {
             // First create the user, if required
-            $userAttrs = $this->mapVendorPlaylistToUserAttributes($vendorPlaylist);
+            $userAttrs = $this->mapServicePlaylistToUserAttributes($playlist);
             $user = User::vendorFind($this->getVendor(), $userAttrs['vendor_id'])->first();
 
             if (is_null($user)) {
@@ -256,7 +256,7 @@ abstract class VendorPlaylistRepository extends Repository
             }
 
             // Map the attributes, setting the user.
-            $playlistAttrs = $this->mapVendorPlaylistToAttributes($vendorPlaylist);
+            $playlistAttrs = $this->mapServicePlaylistToAttributes($playlist);
             $playlistAttrs['owner_id'] = $user->id;
 
             // Next check if the playlist already exists.
@@ -301,7 +301,7 @@ abstract class VendorPlaylistRepository extends Repository
         if (!$track->isrc) {
             $apiTrack = $this->service->getTrack($attrs['vendor_id']);
             if ($apiTrack) {
-                $track->isrc = $this->getIsrcFromVendorTrack($apiTrack);
+                $track->isrc = $this->getIsrcFromTrack($apiTrack);
             }
         }
         $attrs['isrc'] = $track->isrc;
@@ -324,37 +324,37 @@ abstract class VendorPlaylistRepository extends Repository
      */
     protected function getAlbum($attrs)
     {
-        $vendorAlbum = Album::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
+        $album = Album::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
 
         // Now either update the existing playlist or create a new one.
-        if (is_null($vendorAlbum)) {
-            $vendorAlbum = Album::create($attrs);
+        if (is_null($album)) {
+            $album = Album::create($attrs);
         }
         else {
-            $vendorAlbum->update($attrs);
+            $album->update($attrs);
         }
 
         // TODO Do we need to hit the API for the UPC?
 
         // TODO Find the existing matching album
         // if ($album = $this->findMatchingAlbum($attrs)) {
-        //     $vendorAlbum->album_id = $album->id;
+        //     $album->album_id = $album->id;
         // }
-        $vendorAlbum->save();
+        $album->save();
 
-        return $vendorAlbum;
+        return $album;
     }
 
     /**
-     * Find the matching track for the given VendorTrack.
+     * Find the matching track for the given Track.
      *
-     * @param array $vendorTrackAttrs
+     * @param array $TrackAttrs
      * @return Track
      */
-    public function findMatchingTrack($vendorTrackAttrs)
+    public function findMatchingTrack($TrackAttrs)
     {
         // Find all tracks with the same ISRC.
-        $matches = Track::with('albums')->whereIsrc($vendorTrackAttrs['isrc'])->get();
+        $matches = Track::with('albums')->whereIsrc($TrackAttrs['isrc'])->get();
         $count = $matches->count();
         if ($count == 1) {
             // If there's one match, assume it's the same track.
@@ -364,7 +364,7 @@ abstract class VendorPlaylistRepository extends Repository
             // If there are multiple matches, find the one with the same album.
             foreach ($matches as $match) {
                 foreach ($match->albums as $album) {
-                    if ($album->title == $vendorTrackAttrs['album']) {
+                    if ($album->title == $TrackAttrs['album']) {
                         return $match;
                     }
                 }

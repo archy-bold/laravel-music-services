@@ -2,7 +2,7 @@
 
 namespace ArchyBold\LaravelMusicServices\Tests\Feature\Repositories;
 
-use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\VendorPlaylistRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\PlaylistRepository;
 use ArchyBold\LaravelMusicServices\Services\Spotify\SpotifyService;
 use ArchyBold\LaravelMusicServices\Tests\TestCase;
 use ArchyBold\LaravelMusicServices\Tests\Traits\TestsSpotifyApi;
@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class SpotifyVendorPlaylistRepositoryTest extends VendorPlaylistRepositoryTestCase
+class SpotifyPlaylistRepositoryTest extends PlaylistRepositoryTestCase
 {
     use TestsSpotifyApi;
 
@@ -22,7 +22,7 @@ class SpotifyVendorPlaylistRepositoryTest extends VendorPlaylistRepositoryTestCa
     protected function setUp(): void
     {
         parent::setUp();
-        $this->repository = new VendorPlaylistRepository($this->service);
+        $this->repository = new PlaylistRepository($this->service);
     }
 
     public function getFailureProvider()

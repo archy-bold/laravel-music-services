@@ -4,7 +4,7 @@ namespace ArchyBold\LaravelMusicServices\Services\Repositories\Contracts;
 
 use ArchyBold\LaravelMusicServices\Repositories\Contracts\Repository;
 
-interface VendorPlaylistRepository extends Repository
+interface PlaylistRepository extends Repository
 {
     // Custom repository
 
@@ -12,14 +12,14 @@ interface VendorPlaylistRepository extends Repository
      * Get a playlist from an external vendor, store it and return the object.
      *
      * @param string $id
-     * @return \App\VendorPlaylist
+     * @return \App\Playlist
      */
     public function get($id);
 
     /**
      * Get a CSV representation of a playlist.
      *
-     * @param string|int|\App\VendorPlaylist $playlist
+     * @param string|int|\App\Playlist $playlist
      * @param array $headers
      * @param array $columns
      * @param array $load = []
@@ -41,7 +41,7 @@ interface VendorPlaylistRepository extends Repository
      * Get the playlists for a user from an external vendor, store them and return the objects.
      *
      * @param string $userId
-     * @return \App\VendorPlaylist[]
+     * @return \App\Playlist[]
      */
     public function getAllForUser($userId);
 }

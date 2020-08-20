@@ -7,7 +7,7 @@ use ArchyBold\LaravelMusicServices\Repositories\Repository;
 use ArchyBold\LaravelMusicServices\Track;
 use ArchyBold\LaravelMusicServices\Services\Contracts\VendorService;
 
-abstract class VendorTrackRepository extends Repository
+abstract class TrackRepository extends Repository
 {
     /**
      * The entity for this repository.
@@ -49,13 +49,13 @@ abstract class VendorTrackRepository extends Repository
         $id = $this->service->parseId($id, 'track');
 
         // Get the track information and map to attributes
-        $vendorAudioFeatures = $this->service->getTrackAudioFeatures($id);
+        $serviceAudioFeatures = $this->service->getTrackAudioFeatures($id);
         // Get the track.
         $track = Track::vendorFind($this->getVendor(), $id)->first();
 
-        if ($track && !is_null($vendorAudioFeatures) && !empty($vendorAudioFeatures)) {
+        if ($track && !is_null($serviceAudioFeatures) && !empty($serviceAudioFeatures)) {
             // Map the attributes.
-            $audioFeaturesAttrs = $this->mapVendorAudioFeaturesToAttributes($vendorAudioFeatures);
+            $audioFeaturesAttrs = $this->mapServiceAudioFeaturesToAttributes($serviceAudioFeatures);
             $audioFeaturesAttrs['type'] = TrackInformation::AUDIO_FEATURES;
             $audioFeaturesAttrs['track_id'] = $track->id;
 
@@ -83,10 +83,10 @@ abstract class VendorTrackRepository extends Repository
     abstract public function getVendor();
 
     /**
-     * Maps the vendor audio features to a TrackInformation attributes array.
+     * Maps the service audio features to a TrackInformation attributes array.
      *
-     * @param array $vendorAudioFeatures
+     * @param array $serviceAudioFeatures
      * @return array
      */
-    abstract protected function mapVendorAudioFeaturesToAttributes($vendorAudioFeatures);
+    abstract protected function mapServiceAudioFeaturesToAttributes($serviceAudioFeatures);
 }

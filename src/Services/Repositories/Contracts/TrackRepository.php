@@ -2,7 +2,7 @@
 
 namespace ArchyBold\LaravelMusicServices\Services\Repositories\Contracts;
 
-interface VendorTrackRepository
+interface TrackRepository
 {
     // Custom repository
 

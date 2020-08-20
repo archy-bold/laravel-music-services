@@ -4,10 +4,10 @@ namespace ArchyBold\LaravelMusicServices\Services\Repositories\Spotify;
 
 use Carbon\Carbon;
 use ArchyBold\LaravelMusicServices\Services\Contracts\VendorService;
-use ArchyBold\LaravelMusicServices\Services\Repositories\Contracts\VendorPlaylistRepository as RepositoryInterface;
-use ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent\VendorPlaylistRepository as ParentRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Contracts\PlaylistRepository as RepositoryInterface;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent\PlaylistRepository as ParentRepository;
 
-class VendorPlaylistRepository extends ParentRepository implements RepositoryInterface
+class PlaylistRepository extends ParentRepository implements RepositoryInterface
 {
     public function __construct(VendorService $service)
     {
@@ -27,34 +27,34 @@ class VendorPlaylistRepository extends ParentRepository implements RepositoryInt
     /**
      * Maps the vendor playlist to a Playlist attributes array.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return array
      */
-    public function mapVendorPlaylistToAttributes($vendorPlaylist)
+    public function mapServicePlaylistToAttributes($playlist)
     {
         return [
-            'name' => $vendorPlaylist['name'] ?? '',
-            'url' => $vendorPlaylist['external_urls']['spotify'] ?? null,
+            'name' => $playlist['name'] ?? '',
+            'url' => $playlist['external_urls']['spotify'] ?? null,
             'vendor' => $this->getVendor(),
-            'vendor_id' => $vendorPlaylist['id'] ?? '',
-            'public' => $vendorPlaylist['public'] ?? null,
-            'description' => $vendorPlaylist['description'] ?? null,
+            'vendor_id' => $playlist['id'] ?? '',
+            'public' => $playlist['public'] ?? null,
+            'description' => $playlist['description'] ?? null,
             'playlist_id' => null,
             'owner_id' => null,
-            'meta' => collect($vendorPlaylist)->only(['collaborative', 'images']),
+            'meta' => collect($playlist)->only(['collaborative', 'images']),
         ];
     }
 
     /**
      * Maps the vendor playlist to a PlaylistSnapshot attributes array.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return array
      */
-    protected function mapVendorPlaylistToSnapshotAttributes($vendorPlaylist)
+    protected function mapServicePlaylistToSnapshotAttributes($playlist)
     {
         return [
-            'num_followers' => $vendorPlaylist['followers']['total'] ?? null,
+            'num_followers' => $playlist['followers']['total'] ?? null,
             'meta' => [],
         ];
     }
@@ -62,46 +62,46 @@ class VendorPlaylistRepository extends ParentRepository implements RepositoryInt
     /**
      * Maps the user vendor playlists to arrays.
      *
-     * @param array $vendorPlaylists
+     * @param array $playlists
      * @return array
      */
-    protected function mapVendorUserPlaylistsToArray($vendorPlaylists)
+    protected function mapServiceUserPlaylistsToArray($playlists)
     {
-        if (!isset($vendorPlaylists['items'])) {
+        if (!isset($playlists['items'])) {
             return [];
         }
-        return $vendorPlaylists['items'];
+        return $playlists['items'];
     }
 
     /**
      * Maps the vendor playlist to a VendorUser attributes array.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return array
      */
-    protected function mapVendorPlaylistToUserAttributes($vendorPlaylist)
+    protected function mapServicePlaylistToUserAttributes($playlist)
     {
         return [
-            'name' => $vendorPlaylist['owner']['display_name'] ?? '',
+            'name' => $playlist['owner']['display_name'] ?? '',
             'meta' => [],
-            'url' => $vendorPlaylist['owner']['external_urls']['spotify'] ?? null,
+            'url' => $playlist['owner']['external_urls']['spotify'] ?? null,
             'vendor' => $this->getVendor(),
-            'vendor_id' => $vendorPlaylist['owner']['id'] ?? null,
+            'vendor_id' => $playlist['owner']['id'] ?? null,
         ];
     }
 
     /**
      * Maps the vendor playlist tracks to Vendor Track attributes arrays.
      *
-     * @param array $vendorTracks
+     * @param array $Tracks
      * @return array
      */
-    protected function mapVendorPlaylistTracksToAttributes($vendorTracks)
+    protected function mapServicePlaylistTracksToAttributes($Tracks)
     {
-        if (!isset($vendorTracks['items'])) {
+        if (!isset($Tracks['items'])) {
             return [];
         }
-        return collect($vendorTracks['items'])->map(function ($item) {
+        return collect($Tracks['items'])->map(function ($item) {
             $retval = [
                 'vendor' => $this->getVendor(),
                 'pivot' => [
@@ -176,11 +176,11 @@ class VendorPlaylistRepository extends ParentRepository implements RepositoryInt
     /**
      * Get the ISRC from a vendor track.
      *
-     * @param array $vendorTrack
+     * @param array $Track
      * @return array
      */
-    protected function getIsrcFromVendorTrack($vendorTrack)
+    protected function getIsrcFromTrack($Track)
     {
-        return $vendorTrack['external_ids']['isrc'] ?? null;
+        return $Track['external_ids']['isrc'] ?? null;
     }
 }

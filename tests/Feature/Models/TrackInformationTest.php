@@ -13,7 +13,7 @@ class TrackInformationTest extends TestCase
 {
     use TestsLaravelRelationships, RefreshDatabase;
 
-    /** @var VendorTrack */
+    /** @var Track */
     protected $entity;
 
     protected function setUp(): void

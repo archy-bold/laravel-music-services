@@ -4,14 +4,14 @@ namespace ArchyBold\LaravelMusicServices\Tests\Feature\Repositories;
 
 use ArchyBold\LaravelMusicServices\Tests\TestCase;
 use ArchyBold\LaravelMusicServices\Tests\Traits\TestsSpotifyApi;
-use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\VendorTrackRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\TrackRepository;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class SpotifyVendorTrackRepositoryTest extends VendorTrackRepositoryTestCase
+class SpotifyTrackRepositoryTest extends TrackRepositoryTestCase
 {
     use TestsSpotifyApi;
 
@@ -21,7 +21,7 @@ class SpotifyVendorTrackRepositoryTest extends VendorTrackRepositoryTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->repository = new VendorTrackRepository($this->service);
+        $this->repository = new TrackRepository($this->service);
     }
 
     public function getAudioFeaturesFailureProvider()

@@ -2,8 +2,8 @@
 
 namespace ArchyBold\LaravelMusicServices;
 
-use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\VendorPlaylistRepository as SpotifyVendorPlaylistRepository;
-use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\VendorTrackRepository as SpotifyVendorTrackRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\PlaylistRepository as SpotifyPlaylistRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\TrackRepository as SpotifyTrackRepository;
 use ArchyBold\LaravelMusicServices\Services\Spotify\SpotifyService;
 use Illuminate\Support\ServiceProvider;
 
@@ -90,13 +90,13 @@ class MusicServicesServiceProvider extends ServiceProvider
                 config('services.spotify.client_secret')
             ));
         });
-        $this->app->bind(SpotifyVendorPlaylistRepository::class, function ($app) {
-            return new SpotifyVendorPlaylistRepository(
+        $this->app->bind(SpotifyPlaylistRepository::class, function ($app) {
+            return new SpotifyPlaylistRepository(
                 $app->make(SpotifyService::class)
             );
         });
-        $this->app->bind(SpotifyVendorTrackRepository::class, function ($app) {
-            return new SpotifyVendorTrackRepository(
+        $this->app->bind(SpotifyTrackRepository::class, function ($app) {
+            return new SpotifyTrackRepository(
                 $app->make(SpotifyService::class)
             );
         });

@@ -3,10 +3,10 @@
 namespace ArchyBold\LaravelMusicServices\Services\Repositories\Spotify;
 
 use ArchyBold\LaravelMusicServices\Services\Contracts\VendorService;
-use ArchyBold\LaravelMusicServices\Services\Repositories\Contracts\VendorTrackRepository as RepositoryInterface;
-use ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent\VendorTrackRepository as ParentRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Contracts\TrackRepository as RepositoryInterface;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent\TrackRepository as ParentRepository;
 
-class VendorTrackRepository extends ParentRepository implements RepositoryInterface
+class TrackRepository extends ParentRepository implements RepositoryInterface
 {
     public function __construct(VendorService $service)
     {
@@ -26,14 +26,14 @@ class VendorTrackRepository extends ParentRepository implements RepositoryInterf
     /**
      * Maps the vendor audio features to a TrackInformation attributes array.
      *
-     * @param array $vendorPlaylist
+     * @param array $playlist
      * @return array
      */
-    protected function mapVendorAudioFeaturesToAttributes($vendorAudioFeatures)
+    protected function mapServiceAudioFeaturesToAttributes($serviceAudioFeatures)
     {
         return [
             'vendor' => $this->getVendor(),
-            'meta' => collect($vendorAudioFeatures)->only([
+            'meta' => collect($serviceAudioFeatures)->only([
                 'danceability',
                 'energy',
                 'key',

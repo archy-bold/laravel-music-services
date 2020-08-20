@@ -9,18 +9,18 @@ use ArchyBold\LaravelMusicServices\Tests\TestCase;
 use ArchyBold\LaravelMusicServices\Tests\Traits\InteractsWithVendor;
 use ArchyBold\LaravelMusicServices\Track;
 use ArchyBold\LaravelMusicServices\User;
-use ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent\VendorPlaylistRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Eloquent\PlaylistRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 
-abstract class VendorPlaylistRepositoryTestCase extends TestCase
+abstract class PlaylistRepositoryTestCase extends TestCase
 {
     use RefreshDatabase, InteractsWithVendor;
 
-    /** @var VendorPlaylistRepository */
+    /** @var PlaylistRepository */
     protected $repository;
     /** @var string */
     protected $vendor;
