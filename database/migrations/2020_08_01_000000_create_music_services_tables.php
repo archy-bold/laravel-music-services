@@ -20,7 +20,7 @@ class CreateMusicServicesTables extends Migration
             throw new \Exception('Error: config/music-services.php not loaded. Run [php artisan config:clear] and try again.');
         }
 
-        Schema::create($tableNames['users'], function (Blueprint $table) {
+        Schema::create($tableNames['users'], function (Blueprint $table) use ($tableNames) {
             $table->id();
             $table->string('name');
             $table->json('meta')->nullable();
@@ -32,7 +32,7 @@ class CreateMusicServicesTables extends Migration
             $table->unique(['vendor', 'vendor_id'], $tableNames['users'] . '_vendor_index');
         });
 
-        Schema::create($tableNames['playlists'], function (Blueprint $table) {
+        Schema::create($tableNames['playlists'], function (Blueprint $table) use ($tableNames) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
@@ -50,7 +50,7 @@ class CreateMusicServicesTables extends Migration
             $table->unique(['vendor', 'vendor_id'], $tableNames['playlists'] . '_vendor_index');
         });
 
-        Schema::create($tableNames['playlist_snapshots'], function (Blueprint $table) {
+        Schema::create($tableNames['playlist_snapshots'], function (Blueprint $table) use ($tableNames) {
             $table->id();
             $table->unsignedInteger('num_followers')->nullable();
             $table->json('meta')->nullable();
@@ -60,7 +60,7 @@ class CreateMusicServicesTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create($tableNames['albums'], function (Blueprint $table) {
+        Schema::create($tableNames['albums'], function (Blueprint $table) use ($tableNames) {
             $table->id();
             $table->string('name');
             $table->date('release_date');
@@ -75,7 +75,7 @@ class CreateMusicServicesTables extends Migration
             $table->unique(['vendor', 'vendor_id'], $tableNames['albums'] . '_vendor_index');
         });
 
-        Schema::create($tableNames['tracks'], function (Blueprint $table) {
+        Schema::create($tableNames['tracks'], function (Blueprint $table) use ($tableNames) {
             $table->id();
             $table->string('title');
             $table->text('artists');
@@ -92,7 +92,7 @@ class CreateMusicServicesTables extends Migration
             $table->unique(['vendor', 'vendor_id'], $tableNames['tracks'] . '_vendor_index');
         });
 
-        Schema::create($tableNames['playlist_snapshot_track_pivot'], function (Blueprint $table) {
+        Schema::create($tableNames['playlist_snapshot_track_pivot'], function (Blueprint $table) use ($tableNames) {
             $table->foreignId('playlist_snapshot_id')->constrained()->onDelete('cascade');
             $table->foreignId('track_id')->constrained()->onDelete('cascade');
             $table->unsignedInteger('order')->nullable();
@@ -100,7 +100,7 @@ class CreateMusicServicesTables extends Migration
             $table->json('meta')->nullable();
         });
 
-        Schema::create($tableNames['track_information'], function (Blueprint $table) {
+        Schema::create($tableNames['track_information'], function (Blueprint $table) use ($tableNames) {
             $table->id();
             $table->string('type', 20);
             $table->foreignId('track_id')

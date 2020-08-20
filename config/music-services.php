@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'tables' => [
+    'table_names' => [
         'albums' => 'lms_albums',
         'playlists' => 'lms_playlists',
         'playlist_snapshots' => 'lms_playlist_snapshots',
