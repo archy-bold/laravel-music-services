@@ -25,6 +25,7 @@ class Track extends Model
         'vendor_id',
         'meta',
         'album_id',
+        'track_id',
     ];
 
     /**

@@ -73,7 +73,7 @@ trait TestsSpotifyApi
                 ],
                 'pivot' => [
                     'order' => 0,
-                    'added_at' => '2017-03-17T10:39:04.000000Z',
+                    'added_at' => '2017-03-17 10:39:04',
                     'meta' => [
                         'is_local' => false,
                         'added_by' => 'archy_bold',
@@ -124,7 +124,7 @@ trait TestsSpotifyApi
                 ],
                 'pivot' => [
                     'order' => 1,
-                    'added_at' => '2017-03-17T10:41:00.000000Z',
+                    'added_at' => '2017-03-17 10:41:00',
                     'meta' => [
                         'is_local' => false,
                         'added_by' => 'archy_bold',
@@ -175,7 +175,7 @@ trait TestsSpotifyApi
                 ],
                 'pivot' => [
                     'order' => 2,
-                    'added_at' => '2017-03-17T10:41:00.000000Z',
+                    'added_at' => '2017-03-17 10:41:00',
                     'meta' => [
                         'is_local' => false,
                         'added_by' => 'archy_bold',
@@ -226,7 +226,7 @@ trait TestsSpotifyApi
                 ],
                 'pivot' => [
                     'order' => 3,
-                    'added_at' => '2017-03-17T10:41:00.000000Z',
+                    'added_at' => '2017-03-17 10:41:00',
                     'meta' => [
                         'is_local' => false,
                         'added_by' => 'archy_bold',
@@ -248,7 +248,6 @@ trait TestsSpotifyApi
                 'vendor_id' => '19DAgMGSIyeUBEm6a9MTNg',
                 'public' => true,
                 'description' => 'Only the best tunes',
-                'playlist_id' => null,
                 'owner_id' => null,
                 'meta' => [
                     'collaborative' => false,
@@ -278,7 +277,6 @@ trait TestsSpotifyApi
                 'vendor_id' => '2YukjLklW9M2mEcw1MsPrc',
                 'public' => true,
                 'description' => '',
-                'playlist_id' => null,
                 'owner_id' => null,
                 'meta' => [
                     'collaborative' => false,
@@ -308,7 +306,6 @@ trait TestsSpotifyApi
                 'vendor_id' => '0LlbPNvjlDJe2L8oUkZ7Pt',
                 'public' => true,
                 'description' => '',
-                'playlist_id' => null,
                 'owner_id' => null,
                 'meta' => [
                     'collaborative' => false,
@@ -328,7 +325,6 @@ trait TestsSpotifyApi
                 'vendor_id' => '2T6Jo89FVoZpJDlebUNWVO',
                 'public' => true,
                 'description' => '1. Peas, pies, pudding, chips and riiii-ee-iiii-ee-ice. 2. Pikachu',
-                'playlist_id' => null,
                 'owner_id' => null,
                 'meta' => [
                     'collaborative' => false,

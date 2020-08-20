@@ -14,7 +14,7 @@ abstract class VendorTrackRepository extends Repository
      *
      * @var string $entity
      */
-    protected $entity = VendorTrack::class;
+    protected $entity = Track::class;
 
     /** @var VendorService */
     protected $service;
@@ -51,13 +51,13 @@ abstract class VendorTrackRepository extends Repository
         // Get the track information and map to attributes
         $vendorAudioFeatures = $this->service->getTrackAudioFeatures($id);
         // Get the track.
-        $track = VendorTrack::vendorFind($this->getVendor(), $id)->first();
+        $track = Track::vendorFind($this->getVendor(), $id)->first();
 
         if ($track && !is_null($vendorAudioFeatures) && !empty($vendorAudioFeatures)) {
             // Map the attributes.
             $audioFeaturesAttrs = $this->mapVendorAudioFeaturesToAttributes($vendorAudioFeatures);
             $audioFeaturesAttrs['type'] = TrackInformation::AUDIO_FEATURES;
-            $audioFeaturesAttrs['vendor_track_id'] = $track->id;
+            $audioFeaturesAttrs['track_id'] = $track->id;
 
             // Next check if the information already exists.
             $audioFeatures = $track->trackInformation()->audioFeatures($this->getVendor())->first();

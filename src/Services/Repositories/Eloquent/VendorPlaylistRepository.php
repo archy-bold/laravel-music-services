@@ -78,8 +78,8 @@ abstract class VendorPlaylistRepository extends Repository
             $playlist = Playlist::vendorFind($this->getVendor(), $playlist)->first();
         }
 
-        if (!$playlist instanceof VendorPlaylist) {
-            throw new ModelNotFoundException(__('error.not-found'));
+        if (!$playlist instanceof Playlist) {
+            throw new ModelNotFoundException(__('laravel-music-services::error.not-found'));
         }
 
         $load[] = 'owner';
@@ -143,12 +143,12 @@ abstract class VendorPlaylistRepository extends Repository
         foreach ($tracksAttrs as $i => $trackAttrs) {
             $albumAttrs = $trackAttrs['album'] ?? null;
             if ($albumAttrs) {
-                $album = $this->getVendorAlbum($albumAttrs);
+                $album = $this->getAlbum($albumAttrs);
                 $trackAttrs = collect($trackAttrs)->except('album')->toArray();
                 $trackAttrs['album_id'] = $album->id;
             }
 
-            $track = $this->getVendorTrack($trackAttrs);
+            $track = $this->getTrack($trackAttrs);
             $pivot = array_merge(['order' => $i], $trackAttrs['pivot']);
             $snapshot->tracks()->attach($track->id, $pivot);
         }
@@ -246,10 +246,10 @@ abstract class VendorPlaylistRepository extends Repository
         if (!is_null($vendorPlaylist) && !empty($vendorPlaylist)) {
             // First create the user, if required
             $userAttrs = $this->mapVendorPlaylistToUserAttributes($vendorPlaylist);
-            $user = VendorUser::vendorFind($this->getVendor(), $userAttrs['vendor_id'])->first();
+            $user = User::vendorFind($this->getVendor(), $userAttrs['vendor_id'])->first();
 
             if (is_null($user)) {
-                $user = VendorUser::create($userAttrs);
+                $user = User::create($userAttrs);
             }
             else {
                 $user->update($userAttrs);
@@ -283,89 +283,52 @@ abstract class VendorPlaylistRepository extends Repository
      * if it does, it updates. Will then check for matching Tracks and join them.
      *
      * @param array $attrs
-     * @return VendorTrack
-     */
-    protected function getVendorTrack($attrs)
-    {
-        $vendorTrack = VendorTrack::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
-
-        // Now either update the existing playlist or create a new one.
-        if (is_null($vendorTrack)) {
-            $vendorTrack = VendorTrack::create($attrs);
-        }
-        else {
-            $vendorTrack->update($attrs);
-        }
-
-        // If there's no ISRC, we need to hit the track API to get it.
-        if (!$vendorTrack->isrc) {
-            $apiTrack = $this->service->getTrack($attrs['vendor_id']);
-            if ($apiTrack) {
-                $vendorTrack->isrc = $this->getIsrcFromVendorTrack($apiTrack);
-            }
-        }
-        $attrs['isrc'] = $vendorTrack->isrc;
-
-        // TODO Find the existing matching track
-        // if ($track = $this->findMatchingTrack($attrs)) {
-        //     $vendorTrack->track_id = $track->id;
-        // }
-        $vendorTrack->save();
-
-        return $vendorTrack;
-    }
-
-    /**
-     * Gets the track for the given attributes. If it doesn't exist, it creates;
-     * if it does, it updates.
-     *
-     * @param array $attrs
      * @return Track
      */
     protected function getTrack($attrs)
     {
-        $vendorTrack = Track::whereIsrc($this->getVendor(), $attrs['vendor_id'])->first();
+        $track = Track::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
 
         // Now either update the existing playlist or create a new one.
-        if (is_null($vendorTrack)) {
-            $vendorTrack = Track::create($attrs);
+        if (is_null($track)) {
+            $track = Track::create($attrs);
         }
         else {
-            $vendorTrack->update($attrs);
+            $track->update($attrs);
         }
 
         // If there's no ISRC, we need to hit the track API to get it.
-        if (!$vendorTrack->isrc) {
+        if (!$track->isrc) {
             $apiTrack = $this->service->getTrack($attrs['vendor_id']);
             if ($apiTrack) {
-                $vendorTrack->isrc = $this->getIsrcFromTrack($apiTrack);
+                $track->isrc = $this->getIsrcFromVendorTrack($apiTrack);
             }
         }
-        $attrs['isrc'] = $vendorTrack->isrc;
+        $attrs['isrc'] = $track->isrc;
 
         // TODO Find the existing matching track
         // if ($track = $this->findMatchingTrack($attrs)) {
-        //     $vendorTrack->track_id = $track->id;
+        //     $track->track_id = $track->id;
         // }
-        $vendorTrack->save();
+        $track->save();
 
-        return $vendorTrack;
+        return $track;
     }
 
     /**
-     * Gets the vendor album for the given attributes. If it doesn't exist, it creates;
+     * Gets the album for the given attributes. If it doesn't exist, it creates;
      * if it does, it updates.
      *
      * @param array $attrs
-     * @return VendorAlbum
+     * @return Album
      */
-    protected function getVendorAlbum($attrs)
+    protected function getAlbum($attrs)
     {
-        $vendorAlbum = VendorAlbum::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
+        $vendorAlbum = Album::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
 
         // Now either update the existing playlist or create a new one.
         if (is_null($vendorAlbum)) {
-            $vendorAlbum = VendorAlbum::create($attrs);
+            $vendorAlbum = Album::create($attrs);
         }
         else {
             $vendorAlbum->update($attrs);

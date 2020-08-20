@@ -21,7 +21,7 @@ class TrackInformation extends Model
         'type',
         'vendor',
         'meta',
-        'vendor_track_id',
+        'track_id',
     ];
 
     /**

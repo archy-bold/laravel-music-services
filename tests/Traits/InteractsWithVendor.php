@@ -2,7 +2,7 @@
 
 namespace ArchyBold\LaravelMusicServices\Tests\Traits;
 
-use ArchyBold\LaravelMusicServices\Vendor\Contracts\VendorService;
+use ArchyBold\LaravelMusicServices\Services\Contracts\VendorService;
 
 trait InteractsWithVendor
 {
