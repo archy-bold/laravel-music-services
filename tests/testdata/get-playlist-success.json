@@ -1,0 +1,243 @@
+{
+  "collaborative" : false,
+  "description" : "Only the best tunes",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/playlist/19DAgMGSIyeUBEm6a9MTNg"
+  },
+  "followers" : {
+    "href" : null,
+    "total" : 6
+  },
+  "href" : "https://api.spotify.com/v1/playlists/19DAgMGSIyeUBEm6a9MTNg",
+  "id" : "19DAgMGSIyeUBEm6a9MTNg",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://mosaic.scdn.co/640/ab67616d0000b2733e45154c8f34df3fe2d60b44ab67616d0000b2735b2718419ed80b4da4b1b96fab67616d0000b273aff6573c5110e0732fbab3d8ab67616d0000b273e71c53b1e7e74ddcaa427755",
+    "width" : 640
+  }, {
+    "height" : 300,
+    "url" : "https://mosaic.scdn.co/300/ab67616d0000b2733e45154c8f34df3fe2d60b44ab67616d0000b2735b2718419ed80b4da4b1b96fab67616d0000b273aff6573c5110e0732fbab3d8ab67616d0000b273e71c53b1e7e74ddcaa427755",
+    "width" : 300
+  }, {
+    "height" : 60,
+    "url" : "https://mosaic.scdn.co/60/ab67616d0000b2733e45154c8f34df3fe2d60b44ab67616d0000b2735b2718419ed80b4da4b1b96fab67616d0000b273aff6573c5110e0732fbab3d8ab67616d0000b273e71c53b1e7e74ddcaa427755",
+    "width" : 60
+  } ],
+  "name" : "Ridonculous",
+  "owner" : {
+    "display_name" : "Simon Archer",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/archy_bold"
+    },
+    "href" : "https://api.spotify.com/v1/users/archy_bold",
+    "id" : "archy_bold",
+    "type" : "user",
+    "uri" : "spotify:user:archy_bold"
+  },
+  "primary_color" : null,
+  "public" : true,
+  "snapshot_id" : "MjM5LGMwZjAzMzRlNjI5NjA1NWI4NzgzYzQ5ZGQ5MjhiYmE2NTMxYTViNDU=",
+  "tracks" : {
+    "href" : "https://api.spotify.com/v1/playlists/19DAgMGSIyeUBEm6a9MTNg/tracks?offset=0&limit=100",
+    "items" : [ {
+      "added_at" : "2017-03-17T10:39:04Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/archy_bold"
+        },
+        "href" : "https://api.spotify.com/v1/users/archy_bold",
+        "id" : "archy_bold",
+        "type" : "user",
+        "uri" : "spotify:user:archy_bold"
+      },
+      "is_local" : false,
+      "primary_color" : null,
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/63yl9nDNrHpiAYGlNJxxjc"
+            },
+            "href" : "https://api.spotify.com/v1/artists/63yl9nDNrHpiAYGlNJxxjc",
+            "id" : "63yl9nDNrHpiAYGlNJxxjc",
+            "name" : "Frankie Knuckles",
+            "type" : "artist",
+            "uri" : "spotify:artist:63yl9nDNrHpiAYGlNJxxjc"
+          }, {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/0dRiUTGvNV17AMIULRYsvn"
+            },
+            "href" : "https://api.spotify.com/v1/artists/0dRiUTGvNV17AMIULRYsvn",
+            "id" : "0dRiUTGvNV17AMIULRYsvn",
+            "name" : "Mr. Fingers",
+            "type" : "artist",
+            "uri" : "spotify:artist:0dRiUTGvNV17AMIULRYsvn"
+          } ],
+          "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/1OM6ULzT778hgqBI4stbFR"
+          },
+          "href" : "https://api.spotify.com/v1/albums/1OM6ULzT778hgqBI4stbFR",
+          "id" : "1OM6ULzT778hgqBI4stbFR",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab67616d0000b273e71c53b1e7e74ddcaa427755",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/ab67616d00001e02e71c53b1e7e74ddcaa427755",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/ab67616d00004851e71c53b1e7e74ddcaa427755",
+            "width" : 64
+          } ],
+          "name" : "Four Most Cuts Presents - Frankie Knuckles vs. Mr Fingers",
+          "release_date" : "1987",
+          "release_date_precision" : "year",
+          "total_tracks" : 8,
+          "type" : "album",
+          "uri" : "spotify:album:1OM6ULzT778hgqBI4stbFR"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/63yl9nDNrHpiAYGlNJxxjc"
+          },
+          "href" : "https://api.spotify.com/v1/artists/63yl9nDNrHpiAYGlNJxxjc",
+          "id" : "63yl9nDNrHpiAYGlNJxxjc",
+          "name" : "Frankie Knuckles",
+          "type" : "artist",
+          "uri" : "spotify:artist:63yl9nDNrHpiAYGlNJxxjc"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/5obQFNrkFoWB51hm1JTHMw"
+          },
+          "href" : "https://api.spotify.com/v1/artists/5obQFNrkFoWB51hm1JTHMw",
+          "id" : "5obQFNrkFoWB51hm1JTHMw",
+          "name" : "Jamie Principle",
+          "type" : "artist",
+          "uri" : "spotify:artist:5obQFNrkFoWB51hm1JTHMw"
+        } ],
+        "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+        "disc_number" : 1,
+        "duration_ms" : 407453,
+        "episode" : false,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "GBBLG0100312"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/6tvtFyEdNpeurBkT2zNMEL"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/6tvtFyEdNpeurBkT2zNMEL",
+        "id" : "6tvtFyEdNpeurBkT2zNMEL",
+        "is_local" : false,
+        "name" : "Your Love (feat. Jamie Principle)",
+        "popularity" : 55,
+        "preview_url" : "https://p.scdn.co/mp3-preview/7174d19b45a92150c34bf43b7d9141db99d44b32?cid=774b29d4f13844c495f206cafdad9c86",
+        "track" : true,
+        "track_number" : 1,
+        "type" : "track",
+        "uri" : "spotify:track:6tvtFyEdNpeurBkT2zNMEL"
+      },
+      "video_thumbnail" : {
+        "url" : null
+      }
+    }, {
+      "added_at" : "2017-03-17T10:41:00Z",
+      "added_by" : {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/archy_bold"
+        },
+        "href" : "https://api.spotify.com/v1/users/archy_bold",
+        "id" : "archy_bold",
+        "type" : "user",
+        "uri" : "spotify:user:archy_bold"
+      },
+      "is_local" : false,
+      "primary_color" : null,
+      "track" : {
+        "album" : {
+          "album_type" : "album",
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
+            },
+            "href" : "https://api.spotify.com/v1/artists/3koiLjNrgRTNbOwViDipeA",
+            "id" : "3koiLjNrgRTNbOwViDipeA",
+            "name" : "Marvin Gaye",
+            "type" : "artist",
+            "uri" : "spotify:artist:3koiLjNrgRTNbOwViDipeA"
+          } ],
+          "available_markets" : [ ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/1jcnZvZWvAGzNyQ7GNVy8X"
+          },
+          "href" : "https://api.spotify.com/v1/albums/1jcnZvZWvAGzNyQ7GNVy8X",
+          "id" : "1jcnZvZWvAGzNyQ7GNVy8X",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab67616d0000b27360f5e8d519591d51e533e822",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/ab67616d00001e0260f5e8d519591d51e533e822",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/ab67616d0000485160f5e8d519591d51e533e822",
+            "width" : 64
+          } ],
+          "name" : "I Heard It Through The Grapevine / In The Groove (Stereo)",
+          "release_date" : "1969-08-26",
+          "release_date_precision" : "day",
+          "total_tracks" : 12,
+          "type" : "album",
+          "uri" : "spotify:album:1jcnZvZWvAGzNyQ7GNVy8X"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3koiLjNrgRTNbOwViDipeA"
+          },
+          "href" : "https://api.spotify.com/v1/artists/3koiLjNrgRTNbOwViDipeA",
+          "id" : "3koiLjNrgRTNbOwViDipeA",
+          "name" : "Marvin Gaye",
+          "type" : "artist",
+          "uri" : "spotify:artist:3koiLjNrgRTNbOwViDipeA"
+        } ],
+        "available_markets" : [ ],
+        "disc_number" : 1,
+        "duration_ms" : 195266,
+        "episode" : false,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USMO16884718"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/27m1soUndRthrAA1ediOXn"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/27m1soUndRthrAA1ediOXn",
+        "id" : "27m1soUndRthrAA1ediOXn",
+        "is_local" : false,
+        "name" : "I Heard It Through The Grapevine",
+        "popularity" : 3,
+        "preview_url" : null,
+        "track" : true,
+        "track_number" : 4,
+        "type" : "track",
+        "uri" : "spotify:track:27m1soUndRthrAA1ediOXn"
+      },
+      "video_thumbnail" : {
+        "url" : null
+      }
+    } ],
+    "limit" : 2,
+    "next" : "https://api.spotify.com/v1/playlists/19DAgMGSIyeUBEm6a9MTNg/tracks?offset=100&limit=100",
+    "offset" : 0,
+    "previous" : null,
+    "total" : 4
+  },
+  "type" : "playlist",
+  "uri" : "spotify:playlist:19DAgMGSIyeUBEm6a9MTNg"
+}

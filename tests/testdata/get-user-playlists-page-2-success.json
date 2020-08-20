@@ -1,0 +1,75 @@
+{
+  "href" : "https://api.spotify.com/v1/users/archy_bold/playlists?offset=2&limit=2",
+  "items" : [ {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/0LlbPNvjlDJe2L8oUkZ7Pt"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/0LlbPNvjlDJe2L8oUkZ7Pt",
+    "id" : "0LlbPNvjlDJe2L8oUkZ7Pt",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b2738724b960ec88564f05ed55b2",
+      "width" : 640
+    } ],
+    "name" : "blm",
+    "owner" : {
+      "display_name" : "Simon Archer",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/archy_bold"
+      },
+      "href" : "https://api.spotify.com/v1/users/archy_bold",
+      "id" : "archy_bold",
+      "type" : "user",
+      "uri" : "spotify:user:archy_bold"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "NCwxZDQ5NjhkZTUwMGU2ZTBkZmJiNWMwMjgzMTM2MTcwNWRmMzk3OTg1",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/0LlbPNvjlDJe2L8oUkZ7Pt/tracks",
+      "total" : 3
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:0LlbPNvjlDJe2L8oUkZ7Pt"
+  }, {
+    "collaborative" : false,
+    "description" : "1. Peas, pies, pudding, chips and riiii-ee-iiii-ee-ice. 2. Pikachu",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/2T6Jo89FVoZpJDlebUNWVO"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/2T6Jo89FVoZpJDlebUNWVO",
+    "id" : "2T6Jo89FVoZpJDlebUNWVO",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b273c775772fa7bbd72e6565b85c",
+      "width" : 640
+    } ],
+    "name" : "Misheard Lyrics",
+    "owner" : {
+      "display_name" : "Simon Archer",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/archy_bold"
+      },
+      "href" : "https://api.spotify.com/v1/users/archy_bold",
+      "id" : "archy_bold",
+      "type" : "user",
+      "uri" : "spotify:user:archy_bold"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "NCwzNDExMTIxNWQ5MDAyNjYzYjhiZTdiYmY2Y2ViODZiZTZmNTNmMjA3",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/2T6Jo89FVoZpJDlebUNWVO/tracks",
+      "total" : 2
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:2T6Jo89FVoZpJDlebUNWVO"
+  } ],
+  "limit" : 2,
+  "next" : null,
+  "offset" : 2,
+  "previous" : "https://api.spotify.com/v1/users/archy_bold/playlists?offset=0&limit=2",
+  "total" : 4
+}

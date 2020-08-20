@@ -1,0 +1,91 @@
+{
+  "href" : "https://api.spotify.com/v1/users/archy_bold/playlists?offset=0&limit=2",
+  "items" : [ {
+    "collaborative" : false,
+    "description" : "Only the best tunes",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/19DAgMGSIyeUBEm6a9MTNg"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/19DAgMGSIyeUBEm6a9MTNg",
+    "id" : "19DAgMGSIyeUBEm6a9MTNg",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b2733e45154c8f34df3fe2d60b44ab67616d0000b2735b2718419ed80b4da4b1b96fab67616d0000b273aff6573c5110e0732fbab3d8ab67616d0000b273e71c53b1e7e74ddcaa427755",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b2733e45154c8f34df3fe2d60b44ab67616d0000b2735b2718419ed80b4da4b1b96fab67616d0000b273aff6573c5110e0732fbab3d8ab67616d0000b273e71c53b1e7e74ddcaa427755",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b2733e45154c8f34df3fe2d60b44ab67616d0000b2735b2718419ed80b4da4b1b96fab67616d0000b273aff6573c5110e0732fbab3d8ab67616d0000b273e71c53b1e7e74ddcaa427755",
+      "width" : 60
+    } ],
+    "name" : "Ridonculous",
+    "owner" : {
+      "display_name" : "Simon Archer",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/archy_bold"
+      },
+      "href" : "https://api.spotify.com/v1/users/archy_bold",
+      "id" : "archy_bold",
+      "type" : "user",
+      "uri" : "spotify:user:archy_bold"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MjM5LGMwZjAzMzRlNjI5NjA1NWI4NzgzYzQ5ZGQ5MjhiYmE2NTMxYTViNDU=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/19DAgMGSIyeUBEm6a9MTNg/tracks",
+      "total" : 291
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:19DAgMGSIyeUBEm6a9MTNg"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/2YukjLklW9M2mEcw1MsPrc"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/2YukjLklW9M2mEcw1MsPrc",
+    "id" : "2YukjLklW9M2mEcw1MsPrc",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b27309be68e816f1285d903c8d00ab67616d0000b27384b8c7f8ed7ae034d05cf026ab67616d0000b273c0a21d05e01c53ffa8fc0d4bab67616d0000b273cee8634e7ae8d0592dd3b3dc",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b27309be68e816f1285d903c8d00ab67616d0000b27384b8c7f8ed7ae034d05cf026ab67616d0000b273c0a21d05e01c53ffa8fc0d4bab67616d0000b273cee8634e7ae8d0592dd3b3dc",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b27309be68e816f1285d903c8d00ab67616d0000b27384b8c7f8ed7ae034d05cf026ab67616d0000b273c0a21d05e01c53ffa8fc0d4bab67616d0000b273cee8634e7ae8d0592dd3b3dc",
+      "width" : 60
+    } ],
+    "name" : "Genosys never happened 2020",
+    "owner" : {
+      "display_name" : "Simon Archer",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/archy_bold"
+      },
+      "href" : "https://api.spotify.com/v1/users/archy_bold",
+      "id" : "archy_bold",
+      "type" : "user",
+      "uri" : "spotify:user:archy_bold"
+    },
+    "primary_color" : null,
+    "public" : true,
+    "snapshot_id" : "MTAsMzc0ZTEwY2E3NzhmYzg5Njk5NGFiYWExMzhlMWUyMjU4ZDBiNDY2OA==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/2YukjLklW9M2mEcw1MsPrc/tracks",
+      "total" : 9
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:2YukjLklW9M2mEcw1MsPrc"
+  } ],
+  "limit" : 2,
+  "next" : "https://api.spotify.com/v1/users/archy_bold/playlists?offset=2&limit=2",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 4
+}

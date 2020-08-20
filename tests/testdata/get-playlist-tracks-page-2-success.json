@@ -1,0 +1,200 @@
+{
+  "href" : "https://api.spotify.com/v1/playlists/19DAgMGSIyeUBEm6a9MTNg/tracks?offset=2&limit=2",
+  "items" : [ {
+    "added_at" : "2017-03-17T10:41:00Z",
+    "added_by" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/archy_bold"
+      },
+      "href" : "https://api.spotify.com/v1/users/archy_bold",
+      "id" : "archy_bold",
+      "type" : "user",
+      "uri" : "spotify:user:archy_bold"
+    },
+    "is_local" : false,
+    "primary_color" : null,
+    "track" : {
+      "album" : {
+        "album_type" : "compilation",
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/0LyfQWJT6nXafLPZqxe9Of"
+          },
+          "href" : "https://api.spotify.com/v1/artists/0LyfQWJT6nXafLPZqxe9Of",
+          "id" : "0LyfQWJT6nXafLPZqxe9Of",
+          "name" : "Various Artists",
+          "type" : "artist",
+          "uri" : "spotify:artist:0LyfQWJT6nXafLPZqxe9Of"
+        } ],
+        "available_markets" : [ ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/72gsfXVb92BPzas9adrQ1x"
+        },
+        "href" : "https://api.spotify.com/v1/albums/72gsfXVb92BPzas9adrQ1x",
+        "id" : "72gsfXVb92BPzas9adrQ1x",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/ab67616d0000b273be2528999e9ae5c1928ae8b2",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/ab67616d00001e02be2528999e9ae5c1928ae8b2",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/ab67616d00004851be2528999e9ae5c1928ae8b2",
+          "width" : 64
+        } ],
+        "name" : "We Are Marshall Soundtrack",
+        "release_date" : "2007-09",
+        "release_date_precision" : "month",
+        "total_tracks" : 13,
+        "type" : "album",
+        "uri" : "spotify:album:72gsfXVb92BPzas9adrQ1x"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/03PCdNvkF81s7xHmtkNcoz"
+        },
+        "href" : "https://api.spotify.com/v1/artists/03PCdNvkF81s7xHmtkNcoz",
+        "id" : "03PCdNvkF81s7xHmtkNcoz",
+        "name" : "King Floyd",
+        "type" : "artist",
+        "uri" : "spotify:artist:03PCdNvkF81s7xHmtkNcoz"
+      } ],
+      "available_markets" : [ ],
+      "disc_number" : 1,
+      "duration_ms" : 181560,
+      "episode" : false,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "USWR50428155"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/32aSj7Bo0rl3s5fwppu5VP"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/32aSj7Bo0rl3s5fwppu5VP",
+      "id" : "32aSj7Bo0rl3s5fwppu5VP",
+      "is_local" : false,
+      "name" : "Groove Me",
+      "popularity" : 0,
+      "preview_url" : null,
+      "track" : true,
+      "track_number" : 1,
+      "type" : "track",
+      "uri" : "spotify:track:32aSj7Bo0rl3s5fwppu5VP"
+    },
+    "video_thumbnail" : {
+      "url" : null
+    }
+  }, {
+    "added_at" : "2017-03-17T10:41:00Z",
+    "added_by" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/archy_bold"
+      },
+      "href" : "https://api.spotify.com/v1/users/archy_bold",
+      "id" : "archy_bold",
+      "type" : "user",
+      "uri" : "spotify:user:archy_bold"
+    },
+    "is_local" : false,
+    "primary_color" : null,
+    "track" : {
+      "album" : {
+        "album_type" : "single",
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/5a2EaR3hamoenG9rDuVn8j"
+          },
+          "href" : "https://api.spotify.com/v1/artists/5a2EaR3hamoenG9rDuVn8j",
+          "id" : "5a2EaR3hamoenG9rDuVn8j",
+          "name" : "Prince",
+          "type" : "artist",
+          "uri" : "spotify:artist:5a2EaR3hamoenG9rDuVn8j"
+        } ],
+        "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/album/2mteIXvdn40yXE54VXncCY"
+        },
+        "href" : "https://api.spotify.com/v1/albums/2mteIXvdn40yXE54VXncCY",
+        "id" : "2mteIXvdn40yXE54VXncCY",
+        "images" : [ {
+          "height" : 640,
+          "url" : "https://i.scdn.co/image/ab67616d0000b2735b2718419ed80b4da4b1b96f",
+          "width" : 640
+        }, {
+          "height" : 300,
+          "url" : "https://i.scdn.co/image/ab67616d00001e025b2718419ed80b4da4b1b96f",
+          "width" : 300
+        }, {
+          "height" : 64,
+          "url" : "https://i.scdn.co/image/ab67616d000048515b2718419ed80b4da4b1b96f",
+          "width" : 64
+        } ],
+        "name" : "Raspberry Beret / She's Always In My Hair",
+        "release_date" : "1985-01-01",
+        "release_date_precision" : "day",
+        "total_tracks" : 2,
+        "type" : "album",
+        "uri" : "spotify:album:2mteIXvdn40yXE54VXncCY"
+      },
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/5a2EaR3hamoenG9rDuVn8j"
+        },
+        "href" : "https://api.spotify.com/v1/artists/5a2EaR3hamoenG9rDuVn8j",
+        "id" : "5a2EaR3hamoenG9rDuVn8j",
+        "name" : "Prince",
+        "type" : "artist",
+        "uri" : "spotify:artist:5a2EaR3hamoenG9rDuVn8j"
+      } ],
+      "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+      "disc_number" : 1,
+      "duration_ms" : 215173,
+      "episode" : false,
+      "explicit" : false,
+      "external_ids" : {
+        "isrc" : "USWB19902876"
+      },
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/4W9zWGHdrDFygC2Mf1Xmru"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/4W9zWGHdrDFygC2Mf1Xmru",
+      "id" : "4W9zWGHdrDFygC2Mf1Xmru",
+      "is_local" : false,
+      "name" : "Raspberry Beret",
+      "popularity" : 40,
+      "preview_url" : "https://p.scdn.co/mp3-preview/80cd007d427fcfd8c9a9139cfc4fd7b20bfead4c?cid=774b29d4f13844c495f206cafdad9c86",
+      "track" : true,
+      "track_number" : 1,
+      "type" : "track",
+      "uri" : "spotify:track:4W9zWGHdrDFygC2Mf1Xmru"
+    },
+    "video_thumbnail" : {
+      "url" : null
+    }
+  }, {
+    "added_at" : "2019-09-20T04:39:53Z",
+    "added_by" : {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/"
+      },
+      "href" : "https://api.spotify.com/v1/users/",
+      "id" : "",
+      "type" : "user",
+      "uri" : "spotify:user:"
+    },
+    "is_local" : false,
+    "primary_color" : null,
+    "track" : null,
+    "video_thumbnail" : {
+      "url" : null
+    }
+  } ],
+  "limit" : 2,
+  "next" : null,
+  "offset" : 2,
+  "previous" : "https://api.spotify.com/v1/playlists/19DAgMGSIyeUBEm6a9MTNg/tracks?offset=0&limit=2",
+  "total" : 4
+}

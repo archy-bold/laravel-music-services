@@ -16,8 +16,8 @@ class MusicServicesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'archy_bold');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'archy_bold');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-music-services');
+        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-music-services');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadFactoriesFrom(__DIR__.'/../database/factories');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');

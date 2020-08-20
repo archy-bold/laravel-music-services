@@ -48,7 +48,7 @@ class SpotifyService implements VendorService
         }
         catch (\Exception $e) {
             throw new AuthenticationException(
-                __('error.vendor.authentication', [
+                __('laravel-music-services::error.service.authentication', [
                     'service' => 'Spotify',
                     'message' => $e->getMessage(),
                 ])
@@ -245,7 +245,7 @@ class SpotifyService implements VendorService
     protected function doApiCall(ApiCall $call)
     {
         if (is_null($this->api)) {
-            throw new AuthenticationException(__('auth.unauthenticated'));
+            throw new AuthenticationException(__('laravel-music-services::auth.unauthenticated'));
         }
 
         // Get everything from the call.
@@ -288,12 +288,12 @@ class SpotifyService implements VendorService
             }
             else if ($e->getCode() == 401) {
                 throw new AuthorizationException(
-                    __('error.vendor.unauthorised', ['message' => $e->getMessage()])
+                    __('laravel-music-services::error.service.unauthorised', ['message' => $e->getMessage()])
                 );
             }
             else {
                 throw new NotFoundHttpException(
-                    __('error.vendor.not-found', ['message' => $e->getMessage()])
+                    __('laravel-music-services::error.service.not-found', ['message' => $e->getMessage()])
                 );
             }
         }
