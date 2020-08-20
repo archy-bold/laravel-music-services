@@ -74,9 +74,9 @@ class MusicServicesServiceProvider extends ServiceProvider
         ], 'laravel-music-services.views');*/
 
         // Publishing the translation files.
-        /*$this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/archy_bold'),
-        ], 'laravel-music-services.views');*/
+        $this->publishes([
+            __DIR__.'/../resources/lang' => resource_path('lang/vendor/laravel-music-services'),
+        ], 'laravel-music-services.views');
 
         // Registering package commands.
         // $this->commands([]);
