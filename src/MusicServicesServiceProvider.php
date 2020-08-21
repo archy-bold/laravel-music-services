@@ -60,7 +60,7 @@ class MusicServicesServiceProvider extends ServiceProvider
     {
         // Publishing the configuration file.
         $this->publishes([
-            __DIR__.'/../config/laravel-music-services.php' => config_path('laravel-music-services.php'),
+            __DIR__.'/../config/music-services.php' => config_path('music-services.php'),
         ], 'laravel-music-services.config');
 
         // Publishing the views.
