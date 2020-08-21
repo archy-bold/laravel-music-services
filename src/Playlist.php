@@ -41,23 +41,13 @@ class Playlist extends Model
     }
 
     /**
-     * Get the playlist for this entity.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function playlist()
-    {
-        return $this->belongsTo(Playlist::class);
-    }
-
-    /**
      * Get the owner for this entity.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(config('music-services.models.user', User::class));
     }
 
     /**
@@ -67,7 +57,7 @@ class Playlist extends Model
      */
     public function snapshots()
     {
-        return $this->hasMany(PlaylistSnapshot::class);
+        return $this->hasMany(config('music-services.models.playlist_snapshot', PlaylistSnapshot::class));
     }
 
     /**
@@ -77,6 +67,7 @@ class Playlist extends Model
      */
     public function latestSnapshot()
     {
-        return $this->hasOne(PlaylistSnapshot::class)->latest();
+        return $this->hasOne(config('music-services.models.playlist_snapshot', PlaylistSnapshot::class))
+            ->latest();
     }
 }

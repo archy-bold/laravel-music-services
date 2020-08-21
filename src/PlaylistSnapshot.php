@@ -41,12 +41,14 @@ class PlaylistSnapshot extends Model
      */
     public function scopeCurrent($query)
     {
+        $playlistClass = config('music-services.models.playlist', Playlist::class);
+        $snapshotClass = config('music-services.models.playlist_snapshot', PlaylistSnapshot::class);
         // Get the IDs of all latest snapshots.
-        return $query->whereIn('id', function ($query) {
-            return $query->from(with(new Playlist)->getTable() . ' AS p')
-                ->selectSub(function ($query) {
+        return $query->whereIn('id', function ($query) use ($playlistClass, $snapshotClass) {
+            return $query->from(with(new $playlistClass)->getTable() . ' AS p')
+                ->selectSub(function ($query) use ($snapshotClass) {
                     $query->select('id')
-                        ->from(with(new PlaylistSnapshot)->getTable())
+                        ->from(with(new $snapshotClass)->getTable())
                         ->where('playlist_id', DB::raw('p.id'))
                         ->latest()
                         ->limit(1);
@@ -61,7 +63,7 @@ class PlaylistSnapshot extends Model
      */
     public function playlist()
     {
-        return $this->belongsTo(Playlist::class);
+        return $this->belongsTo(config('music-services.models.playlist', Playlist::class));
     }
 
     /**
@@ -72,7 +74,7 @@ class PlaylistSnapshot extends Model
     public function tracks()
     {
         return $this->belongsToMany(
-            Track::class,
+            config('music-services.models.track', Track::class),
             config('music-services.table_names.playlist_snapshot_track_pivot'),
             'playlist_snapshot_id',
             'track_id'

@@ -43,6 +43,6 @@ class User extends Model
      */
     public function playlists()
     {
-        return $this->hasMany(Playlist::class, 'owner_id');
+        return $this->hasMany(config('music-services.models.playlist', Playlist::class), 'owner_id');
     }
 }

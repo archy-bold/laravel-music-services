@@ -20,7 +20,7 @@ abstract class PlaylistRepository extends Repository
      *
      * @var string $entity
      */
-    protected $entity = Playlist::class;
+    protected $entity = null;
 
     /** @var VendorService */
     protected $service;
@@ -33,6 +33,7 @@ abstract class PlaylistRepository extends Repository
     public function __construct(VendorService $service)
     {
         $this->service = $service;
+        $this->entity = config('music-services.models.playlist', Playlist::class);
     }
 
     protected function authenticate()
@@ -72,10 +73,10 @@ abstract class PlaylistRepository extends Repository
     public function getCsv($playlist, $headers, $columns, $load = [])
     {
         if (is_numeric($playlist)) {
-            $playlist = Playlist::find($playlist);
+            $playlist = $this->entity::find($playlist);
         }
         else if (is_string($playlist)) {
-            $playlist = Playlist::vendorFind($this->getVendor(), $playlist)->first();
+            $playlist = $this->entity::vendorFind($this->getVendor(), $playlist)->first();
         }
 
         if (!$playlist instanceof Playlist) {
@@ -114,6 +115,7 @@ abstract class PlaylistRepository extends Repository
      */
     public function createSnapshot($id)
     {
+        $snapshotClass = config('music-services.models.playlist_snapshot', PlaylistSnapshot::class);
         $id = $this->service->parseId($id, 'playlist');
 
         // Start by getting the playlist
@@ -134,7 +136,7 @@ abstract class PlaylistRepository extends Repository
         $servicePlaylist = $this->service->getPlaylist($id);
         $snapshotAttrs = $this->mapServicePlaylistToSnapshotAttributes($servicePlaylist);
         $snapshotAttrs['playlist_id'] = $playlist->id;
-        $snapshot = PlaylistSnapshot::create($snapshotAttrs);
+        $snapshot = $snapshotClass::create($snapshotAttrs);
 
         // Then get the track attributes
         $tracksAttrs = $this->mapServicePlaylistTracksToAttributes($Tracks);
@@ -243,13 +245,14 @@ abstract class PlaylistRepository extends Repository
      */
     protected function createModels($playlist, $id = null)
     {
+        $userClass = config('music-services.models.user', User::class);
         if (!is_null($playlist) && !empty($playlist)) {
             // First create the user, if required
             $userAttrs = $this->mapServicePlaylistToUserAttributes($playlist);
-            $user = User::vendorFind($this->getVendor(), $userAttrs['vendor_id'])->first();
+            $user = $userClass::vendorFind($this->getVendor(), $userAttrs['vendor_id'])->first();
 
             if (is_null($user)) {
-                $user = User::create($userAttrs);
+                $user = $userClass::create($userAttrs);
             }
             else {
                 $user->update($userAttrs);
@@ -263,11 +266,11 @@ abstract class PlaylistRepository extends Repository
             if (!$id) {
                 $id = $playlistAttrs['vendor_id'];
             }
-            $playlist = Playlist::vendorFind($this->getVendor(), $id)->first();
+            $playlist = $this->entity::vendorFind($this->getVendor(), $id)->first();
 
             // Now either update the existing playlist or create a new one.
             if (is_null($playlist)) {
-                $playlist = Playlist::create($playlistAttrs);
+                $playlist = $this->entity::create($playlistAttrs);
             }
             else {
                 $playlist->update($playlistAttrs);
@@ -287,11 +290,12 @@ abstract class PlaylistRepository extends Repository
      */
     protected function getTrack($attrs)
     {
-        $track = Track::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
+        $trackClass = config('music-services.models.track', Track::class);
+        $track = $trackClass::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
 
         // Now either update the existing playlist or create a new one.
         if (is_null($track)) {
-            $track = Track::create($attrs);
+            $track = $trackClass::create($attrs);
         }
         else {
             $track->update($attrs);
@@ -306,10 +310,6 @@ abstract class PlaylistRepository extends Repository
         }
         $attrs['isrc'] = $track->isrc;
 
-        // TODO Find the existing matching track
-        // if ($track = $this->findMatchingTrack($attrs)) {
-        //     $track->track_id = $track->id;
-        // }
         $track->save();
 
         return $track;
@@ -324,11 +324,12 @@ abstract class PlaylistRepository extends Repository
      */
     protected function getAlbum($attrs)
     {
-        $album = Album::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
+        $albumClass = config('music-services.models.album', Album::class);
+        $album = $albumClass::vendorFind($this->getVendor(), $attrs['vendor_id'])->first();
 
         // Now either update the existing playlist or create a new one.
         if (is_null($album)) {
-            $album = Album::create($attrs);
+            $album = $albumClass::create($attrs);
         }
         else {
             $album->update($attrs);
@@ -343,33 +344,5 @@ abstract class PlaylistRepository extends Repository
         $album->save();
 
         return $album;
-    }
-
-    /**
-     * Find the matching track for the given Track.
-     *
-     * @param array $TrackAttrs
-     * @return Track
-     */
-    public function findMatchingTrack($TrackAttrs)
-    {
-        // Find all tracks with the same ISRC.
-        $matches = Track::with('albums')->whereIsrc($TrackAttrs['isrc'])->get();
-        $count = $matches->count();
-        if ($count == 1) {
-            // If there's one match, assume it's the same track.
-            return $matches->first();
-        }
-        else if ($count > 1) {
-            // If there are multiple matches, find the one with the same album.
-            foreach ($matches as $match) {
-                foreach ($match->albums as $album) {
-                    if ($album->title == $TrackAttrs['album']) {
-                        return $match;
-                    }
-                }
-            }
-        }
-        return null;
     }
 }

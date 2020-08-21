@@ -3,6 +3,15 @@
 return [
     'override_migrations' => false,
 
+    'models' => [
+        'album' => ArchyBold\LaravelMusicServices\Album::class,
+        'playlist' => ArchyBold\LaravelMusicServices\Playlist::class,
+        'playlist_snapshot' => ArchyBold\LaravelMusicServices\PlaylistSnapshot::class,
+        'track' => ArchyBold\LaravelMusicServices\Track::class,
+        'track_information' => ArchyBold\LaravelMusicServices\TrackInformation::class,
+        'user' => ArchyBold\LaravelMusicServices\User::class,
+    ],
+
     'table_names' => [
         'albums' => 'lms_albums',
         'playlists' => 'lms_playlists',

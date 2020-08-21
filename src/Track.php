@@ -70,7 +70,7 @@ class Track extends Model
     public function playlistSnapshots()
     {
         return $this->belongsToMany(
-            PlaylistSnapshot::class,
+            config('music-services.models.playlist_snapshot', PlaylistSnapshot::class),
             config('music-services.table_names.playlist_snapshot_track_pivot'),
         )->using(PlaylistTrackPivot::class)
             ->withPivot('order', 'added_at', 'meta');
@@ -93,7 +93,7 @@ class Track extends Model
      */
     public function album()
     {
-        return $this->belongsTo(Album::class);
+        return $this->belongsTo(config('music-services.models.album', Album::class));
     }
 
     /**
@@ -103,7 +103,7 @@ class Track extends Model
      */
     public function trackInformation()
     {
-        return $this->hasMany(TrackInformation::class);
+        return $this->hasMany(config('music-services.models.track_information', TrackInformation::class));
     }
 
     /**
@@ -113,6 +113,7 @@ class Track extends Model
      */
     public function audioFeatures()
     {
-        return $this->hasOne(TrackInformation::class)->audioFeatures();
+        return $this->hasOne(config('music-services.models.track_information', TrackInformation::class))
+            ->audioFeatures();
     }
 }

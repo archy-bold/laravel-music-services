@@ -14,7 +14,7 @@ abstract class TrackRepository extends Repository
      *
      * @var string $entity
      */
-    protected $entity = Track::class;
+    protected $entity = null;
 
     /** @var VendorService */
     protected $service;
@@ -27,6 +27,7 @@ abstract class TrackRepository extends Repository
     public function __construct(VendorService $service)
     {
         $this->service = $service;
+        $this->entity = config('music-services.models.track', Track::class);
     }
 
     protected function authenticate()
@@ -46,12 +47,13 @@ abstract class TrackRepository extends Repository
     public function getAudioFeatures($id)
     {
         $this->authenticate();
+        $trackInformationClass = config('music-services.models.track_information', TrackInformation::class);
         $id = $this->service->parseId($id, 'track');
 
         // Get the track information and map to attributes
         $serviceAudioFeatures = $this->service->getTrackAudioFeatures($id);
         // Get the track.
-        $track = Track::vendorFind($this->getVendor(), $id)->first();
+        $track = $this->entity::vendorFind($this->getVendor(), $id)->first();
 
         if ($track && !is_null($serviceAudioFeatures) && !empty($serviceAudioFeatures)) {
             // Map the attributes.
@@ -64,7 +66,7 @@ abstract class TrackRepository extends Repository
 
             // Now either update the existing track information or create a new one.
             if (is_null($audioFeatures)) {
-                $audioFeatures = TrackInformation::create($audioFeaturesAttrs);
+                $audioFeatures = $trackInformationClass::create($audioFeaturesAttrs);
             }
             else {
                 $audioFeatures->update($audioFeaturesAttrs);
