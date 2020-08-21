@@ -121,7 +121,9 @@ class Track extends Model
      */
     public function audioFeatures()
     {
-        return $this->hasOne(config('music-services.models.track_information', TrackInformation::class))
-            ->audioFeatures();
+        return $this->hasOne(
+            config('music-services.models.track_information', TrackInformation::class),
+            'track_id'
+        )->audioFeatures();
     }
 }
