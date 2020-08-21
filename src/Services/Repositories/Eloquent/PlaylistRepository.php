@@ -126,9 +126,9 @@ abstract class PlaylistRepository extends Repository
         }
 
         // Then get the playlist tracks
-        $Tracks = $this->service->getAllPlaylistTracks($id);
+        $tracks = $this->service->getAllPlaylistTracks($id);
 
-        if (is_null($Tracks)) {
+        if (is_null($tracks)) {
             return null;
         }
 
@@ -139,7 +139,7 @@ abstract class PlaylistRepository extends Repository
         $snapshot = $snapshotClass::create($snapshotAttrs);
 
         // Then get the track attributes
-        $tracksAttrs = $this->mapServicePlaylistTracksToAttributes($Tracks);
+        $tracksAttrs = $this->mapServicePlaylistTracksToAttributes($tracks);
 
         // For each track, create the album, get the track and join to the snapshot
         foreach ($tracksAttrs as $i => $trackAttrs) {
@@ -227,15 +227,15 @@ abstract class PlaylistRepository extends Repository
      * @param array $playlist
      * @return array
      */
-    abstract protected function mapServicePlaylistTracksToAttributes($Tracks);
+    abstract protected function mapServicePlaylistTracksToAttributes($tracks);
 
     /**
      * Get the ISRC from a vendor track.
      *
-     * @param array $Track
+     * @param array $track
      * @return array
      */
-    abstract protected function getIsrcFromTrack($Track);
+    abstract protected function getIsrcFromTrack($track);
 
     /**
      * Function to generate the models for a service playlist.

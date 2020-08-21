@@ -93,15 +93,15 @@ class PlaylistRepository extends ParentRepository implements RepositoryInterface
     /**
      * Maps the vendor playlist tracks to Vendor Track attributes arrays.
      *
-     * @param array $Tracks
+     * @param array $tracks
      * @return array
      */
-    protected function mapServicePlaylistTracksToAttributes($Tracks)
+    protected function mapServicePlaylistTracksToAttributes($tracks)
     {
-        if (!isset($Tracks['items'])) {
+        if (!isset($tracks['items'])) {
             return [];
         }
-        return collect($Tracks['items'])->map(function ($item) {
+        return collect($tracks['items'])->map(function ($item) {
             $retval = [
                 'vendor' => $this->getVendor(),
                 'pivot' => [
@@ -176,11 +176,11 @@ class PlaylistRepository extends ParentRepository implements RepositoryInterface
     /**
      * Get the ISRC from a vendor track.
      *
-     * @param array $Track
+     * @param array $track
      * @return array
      */
-    protected function getIsrcFromTrack($Track)
+    protected function getIsrcFromTrack($track)
     {
-        return $Track['external_ids']['isrc'] ?? null;
+        return $track['external_ids']['isrc'] ?? null;
     }
 }

@@ -7,13 +7,15 @@ use ArchyBold\LaravelMusicServices\Tests\TestCase;
 use ArchyBold\LaravelMusicServices\Tests\Traits\TestsSpotifyApi;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use phpmock\phpunit\PHPMock;
+use SpotifyWebAPI\Request;
 use SpotifyWebAPI\Session;
 use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\SpotifyWebAPIException;
 
 class SpotifyServiceTest extends TestCase
 {
-    use TestsSpotifyApi;
+    use TestsSpotifyApi, PHPMock;
 
     /**
      * Test getting the Service from the AppServiceProvider.
@@ -136,7 +138,7 @@ class SpotifyServiceTest extends TestCase
 
         $service = new SpotifyService($session, $api);
 
-        // Get the playlist
+        // Get the track
         $track = $service->getTrack($id);
 
         $this->assertEquals($expectedTrack, $track);
@@ -179,6 +181,52 @@ class SpotifyServiceTest extends TestCase
         }
 
         $service->getTrack($id);
+    }
+
+    /**
+     * Test getTrack - retries when rate limited.
+     *
+     * @return void
+     */
+    public function test_getTrack_rateLimited()
+    {
+        $id = 'abc123';
+        $expectedTrack = ['id' => '3135556', 'title' => 'Harder, Better, Faster, Stronger'];
+
+        // Set up the sleep mock
+        $reflect = new \ReflectionClass(SpotifyService::class);
+        $namespace = $reflect->getNamespaceName();
+
+        // Set up the mocks.
+        $retryAfter = 10;
+        $sleep = $this->getFunctionMock($namespace, 'sleep');
+        $sleep->expects($this->once())
+            ->with($this->equalTo($retryAfter));
+        $response = ['headers' => ['retry-after' => $retryAfter]];
+        $request = $this->createMock(Request::class);
+        $request->expects($this->exactly(1))
+            ->method('getLastResponse')
+            ->will($this->returnValue($response));
+        $exception = new SpotifyWebAPIException('An unknown error occurred.', 429);
+        $session = $this->createMock(Session::class);
+        $api = $this->createMock(SpotifyWebAPI::class);
+        $api->expects($this->exactly(2))
+            ->method('getTrack')
+            ->with($this->equalTo($id))
+            ->will($this->onConsecutiveCalls(
+                $this->throwException($exception),
+                $this->returnValue($expectedTrack)
+            ));
+        $api->expects($this->once(2))
+            ->method('getRequest')
+            ->will($this->returnValue($request));
+
+        $service = new SpotifyService($session, $api);
+
+        // Get the track
+        $track = $service->getTrack($id);
+
+        $this->assertEquals($expectedTrack, $track);
     }
 
     /**

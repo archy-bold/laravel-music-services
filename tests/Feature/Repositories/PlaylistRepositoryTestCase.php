@@ -333,14 +333,23 @@ abstract class PlaylistRepositoryTestCase extends TestCase
             ]);
         }
         $existingTracks = [];
+        $existingAlbums = [];
         if ($tracksExist) {
             foreach ($expectedTracks as $track) {
+                // Create the album too
+                if (isset($track['album'])) {
+                    $existingAlbums[] = factory(Album::class)->create([
+                        'vendor' => $this->vendor,
+                        'vendor_id' => $track['album']['vendor_id'],
+                    ]);
+                }
                 $existingTracks[] = factory(Track::class)->create([
                     'vendor' => $this->vendor,
                     'vendor_id' => $track['vendor_id'],
                 ]);
             }
         }
+        $albumsCount = Album::count();
         $tracksCount = Track::count();
 
         // Set up the mock service
@@ -410,6 +419,11 @@ abstract class PlaylistRepositoryTestCase extends TestCase
             $this->assertEquals($tracksCount, Track::count());
             foreach ($existingTracks as $i => $existingTrack) {
                 $this->assertEquals($existingTrack->id, $snapshot->tracks->get($i)->id);
+            }
+            // No new albums
+            $this->assertEquals($albumsCount, Album::count());
+            foreach ($existingAlbums as $i => $existingAlbum) {
+                $this->assertEquals($existingAlbum->id, $snapshot->tracks->get($i)->album->id);
             }
         }
         else {

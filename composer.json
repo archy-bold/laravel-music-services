@@ -28,7 +28,8 @@
         "mockery/mockery": "^1.1",
         "orchestra/testbench": "~3|~4",
         "sempro/phpunit-pretty-print": "^1.0",
-        "timacdonald/log-fake": "^1.6"
+        "timacdonald/log-fake": "^1.6",
+        "php-mock/php-mock-phpunit": "^2.6"
     },
     "autoload": {
         "psr-4": {
