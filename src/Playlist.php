@@ -47,7 +47,10 @@ class Playlist extends Model
      */
     public function owner()
     {
-        return $this->belongsTo(config('music-services.models.user', User::class));
+        return $this->belongsTo(
+            config('music-services.models.user', User::class),
+            'owner_id'
+        );
     }
 
     /**
@@ -57,7 +60,10 @@ class Playlist extends Model
      */
     public function snapshots()
     {
-        return $this->hasMany(config('music-services.models.playlist_snapshot', PlaylistSnapshot::class));
+        return $this->hasMany(
+            config('music-services.models.playlist_snapshot', PlaylistSnapshot::class),
+            'playlist_id'
+        );
     }
 
     /**
@@ -67,7 +73,9 @@ class Playlist extends Model
      */
     public function latestSnapshot()
     {
-        return $this->hasOne(config('music-services.models.playlist_snapshot', PlaylistSnapshot::class))
-            ->latest();
+        return $this->hasOne(
+            config('music-services.models.playlist_snapshot', PlaylistSnapshot::class),
+            'playlist_id'
+        )->latest();
     }
 }

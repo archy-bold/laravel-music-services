@@ -67,7 +67,10 @@ class TrackInformation extends Model
      */
     public function track()
     {
-        return $this->belongsTo(config('music-services.models.track', Track::class));
+        return $this->belongsTo(
+            config('music-services.models.track', Track::class),
+            'track_id'
+        );
     }
 
     /**

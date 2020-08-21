@@ -56,6 +56,9 @@ class Album extends Model
      */
     public function tracks()
     {
-        return $this->hasMany(config('music-services.models.track', Track::class));
+        return $this->hasMany(
+            config('music-services.models.track', Track::class),
+            'album_id'
+        );
     }
 }

@@ -63,7 +63,10 @@ class PlaylistSnapshot extends Model
      */
     public function playlist()
     {
-        return $this->belongsTo(config('music-services.models.playlist', Playlist::class));
+        return $this->belongsTo(
+            config('music-services.models.playlist', Playlist::class),
+            'playlist_id'
+        );
     }
 
     /**
