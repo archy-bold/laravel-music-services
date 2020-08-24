@@ -61,6 +61,20 @@ class SpotifyService implements VendorService
     }
 
     /**
+     * Set the token on the service, avoiding the authenticate function.
+     *
+     * @param string $token
+     * @throws \Illuminate\Auth\AuthenticationException
+     */
+    public function setAccessToken($token)
+    {
+        $this->accessToken = $token;
+        $this->api = new SpotifyWebAPI();
+        $this->api->setAccessToken($this->accessToken);
+        $this->api->setReturnType(SpotifyWebAPI::RETURN_ASSOC);
+    }
+
+    /**
      * Retrieve a track from the external service.
      *
      * @param string $id

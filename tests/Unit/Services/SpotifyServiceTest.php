@@ -66,6 +66,29 @@ class SpotifyServiceTest extends TestCase
     }
 
     /**
+     * Test setAccessToken - succeeds.
+     *
+     * @return void
+     */
+    public function test_setAccessToken()
+    {
+        $token = 'new_token';
+        // Set up the mock session.
+        $session = $this->createMock(Session::class);
+
+        $service = new SpotifyService($session);
+        $service->setAccessToken($token);
+
+        // Make the assertions.
+        $this->assertEquals($token, $this->getProperty($service, 'accessToken'));
+        $this->assertNotEquals(null, $this->getProperty($service, 'api'));
+        $api = $this->getProperty($service, 'api');
+        $this->assertEquals($token, $this->getProperty($api, 'accessToken'));
+        $request = $this->getProperty($api, 'request');
+        $this->assertEquals(SpotifyWebAPI::RETURN_ASSOC, $request->getReturnType());
+    }
+
+    /**
      * Test authenticate - fails.
      *
      * @return void

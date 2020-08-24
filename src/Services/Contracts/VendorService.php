@@ -15,6 +15,14 @@ interface VendorService
     public function authenticate();
 
     /**
+     * Set the token on the service, avoiding the authenticate function.
+     *
+     * @param string $token
+     * @throws \Illuminate\Auth\AuthenticationException
+     */
+    public function setAccessToken($token);
+
+    /**
      * Retrieve a track from the external service.
      *
      * @param string $id
