@@ -22,8 +22,13 @@ abstract class PlaylistRepository extends Repository
      */
     protected $entity = null;
 
-    /** @var VendorService */
-    protected $service;
+    /**
+     * The vendor service.
+     *
+     * @var VendorService $service
+     */
+    public $service;
+
     /** @var boolean */
     protected $authenticated = false;
 
@@ -337,10 +342,6 @@ abstract class PlaylistRepository extends Repository
 
         // TODO Do we need to hit the API for the UPC?
 
-        // TODO Find the existing matching album
-        // if ($album = $this->findMatchingAlbum($attrs)) {
-        //     $album->album_id = $album->id;
-        // }
         $album->save();
 
         return $album;

@@ -16,8 +16,13 @@ abstract class TrackRepository extends Repository
      */
     protected $entity = null;
 
-    /** @var VendorService */
-    protected $service;
+    /**
+     * The vendor service.
+     *
+     * @var VendorService $service
+     */
+    public $service;
+
     /** @var boolean */
     protected $authenticated = false;
 
