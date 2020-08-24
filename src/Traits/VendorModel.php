@@ -29,14 +29,18 @@ trait VendorModel
     {
         if ($this->vendor == 'spotify' && !is_null($this->vendor_id)) {
             $class = get_class($this);
+            $albumClass = config('music-services.models.album', Album::class);
+            $playlistClass = config('music-services.models.playlist', Playlist::class);
+            $trackClass = config('music-services.models.track', Track::class);
+            $userClass = config('music-services.models.user', User::class);
             switch ($class) {
-                case Album::class:
+                case $albumClass:
                     return 'spotify:album:' . $this->vendor_id;
-                case Playlist::class:
+                case $playlistClass:
                     return 'spotify:playlist:' . $this->vendor_id;
-                case Track::class:
+                case $trackClass:
                     return 'spotify:track:' . $this->vendor_id;
-                case User::class:
+                case $userClass:
                     return 'spotify:user:' . $this->vendor_id;
             }
         }
