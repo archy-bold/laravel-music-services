@@ -10,6 +10,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use SpotifyWebAPI\Session;
 use SpotifyWebAPI\SpotifyWebAPI;
 use SpotifyWebAPI\SpotifyWebAPIException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SpotifyService implements VendorService
@@ -229,6 +230,22 @@ class SpotifyService implements VendorService
     }
 
     /**
+     * Create a playlist for the logged in user on the external service.
+     *
+     * @param array $attrs
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function createPlaylist($attrs)
+    {
+        $call = new ApiCall('createPlaylist', '', $attrs);
+        $call->setCacheable(false);
+        $call->setRequiresId(false);
+        return $this->doApiCall($call);
+    }
+
+    /**
      * Parse the given ID, eg extract ID from url
      *
      * @param string $id
@@ -268,29 +285,38 @@ class SpotifyService implements VendorService
         $options = $call->getOptions();
 
         // Ensure the ID is as expected
-        $type = null;
-        if (strpos($function, 'getPlaylist') === 0) {
-            $type = 'playlist';
+        if ($call->requiresId()) {
+            $type = null;
+            if (strpos($function, 'getPlaylist') === 0) {
+                $type = 'playlist';
+            }
+            else if (strpos($function, 'getTrack') === 0 || strpos($function, 'getAudioFeatures') === 0) {
+                $type = 'track';
+            }
+            else if (strpos($function, 'getUserPlaylists') === 0) {
+                $type = 'user';
+            }
+            $id = $this->parseId($id, $type);
         }
-        else if (strpos($function, 'getTrack') === 0 || strpos($function, 'getAudioFeatures') === 0) {
-            $type = 'track';
-        }
-        else if (strpos($function, 'getUserPlaylists') === 0) {
-            $type = 'user';
-        }
-        $id = $this->parseId($id, $type);
 
         $result = null;
 
         // Check if it's stored in the cache.
-        if ($result = $this->retrieveFromCache($call)) {
+        if ($call->isCacheable() && $result = $this->retrieveFromCache($call)) {
             return $result;
         }
 
         try {
-            $result = $this->api->$function($id, $options);
+            if ($call->requiresId()) {
+                $result = $this->api->$function($id, $options);
+            }
+            else {
+                $result = $this->api->$function($options);
+            }
             // Add the result to the cache.
-            $this->addToCache($call, $result);
+            if ($call->isCacheable()) {
+                $this->addToCache($call, $result);
+            }
         }
         catch (SpotifyWebAPIException $e) {
             if ($e->getCode() == 429) {
@@ -305,7 +331,13 @@ class SpotifyService implements VendorService
                     __('laravel-music-services::error.service.unauthorised', ['message' => $e->getMessage()])
                 );
             }
+            else if ($e->getCode() == 400) {
+                throw new BadRequestHttpException(
+                    __('laravel-music-services::error.service.invalid-request', ['message' => $e->getMessage()])
+                );
+            }
             else {
+                // dd($e->getCode());
                 throw new NotFoundHttpException(
                     __('laravel-music-services::error.service.not-found', ['message' => $e->getMessage()])
                 );

@@ -411,6 +411,18 @@ class SpotifyServiceTest extends TestCase
                 \Illuminate\Auth\Access\AuthorizationException::class,
                 'Unauthorised: No token provided',
             ],
+            'invalid request, missing field' => [
+                '',
+                new SpotifyWebAPIException('Missing required field: name', 400),
+                \Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class,
+                'Invalid request: Missing required field: name',
+            ],
+            'invalid request, invalid JSON' => [
+                '',
+                new SpotifyWebAPIException('Error parsing JSON.', 400),
+                \Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class,
+                'Invalid request: Error parsing JSON.',
+            ],
             'unathenticated' => [
                 'anything',
                 null,
@@ -730,6 +742,80 @@ class SpotifyServiceTest extends TestCase
         $this->assertEquals('blm', $playlists['items'][2]['name']);
         $this->assertEquals('2T6Jo89FVoZpJDlebUNWVO', $playlists['items'][3]['id']);
         $this->assertEquals('Misheard Lyrics', $playlists['items'][3]['name']);
+    }
+
+    /**
+     * Test createPlaylist
+     *
+     * @return void
+     */
+    public function test_createPlaylist()
+    {
+        $attrs = ['name' => 'New Playlist', 'description' => 'New playlist description'];
+        $expectedPlaylist = ['id' => '02OUOzIuIE0h1zrQBFnc0n', 'name' => 'New Playlist', 'description' => 'New playlist description'];
+
+        // Set up the mocks.
+        $session = $this->createMock(Session::class);
+        $api = $this->createMock(SpotifyWebAPI::class);
+        $api->expects($this->exactly(2))
+            ->method('createPlaylist')
+            ->with($this->equalTo($attrs))
+            ->will($this->returnValue($expectedPlaylist));
+
+        $service = new SpotifyService($session, $api);
+
+        // Get the playlist
+        $playlist = $service->createPlaylist($attrs);
+
+        $this->assertEquals($expectedPlaylist, $playlist);
+
+        // Perform a second request to ensure the API call is not cached.
+        $playlist = $service->createPlaylist($attrs);
+        $this->assertEquals($expectedPlaylist, $playlist);
+    }
+
+    /**
+     * Test createPlaylist - fails.
+     *
+     * @return void
+     * @dataProvider createPlaylistFailureProvider
+     */
+    public function test_createPlaylist_failure($attrs, $throws, $exceptionClass, $message, $setApi = true)
+    {
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($message);
+
+        // Set up the mocks.
+        $session = $this->createMock(Session::class);
+        $service = null;
+        if ($setApi) {
+            $api = $this->createMock(SpotifyWebAPI::class);
+            $api->expects($this->once())
+                ->method('createPlaylist')
+                ->with($this->equalTo($attrs))
+                ->will($this->throwException($throws));
+
+            $service = new SpotifyService($session, $api);
+        }
+        else {
+            $service = new SpotifyService($session);
+        }
+
+        $service->createPlaylist($attrs);
+    }
+
+    public function createPlaylistFailureProvider()
+    {
+        $tests = $this->apiFailureProvider();
+        $filledRequest = ['name' => 'New Playlist', 'description' => 'New playlist description'];
+        unset($tests['empty id']);
+        unset($tests['invalid id']);
+        $tests['not found'][0] = $attrs;
+        $tests['no token'][0] = $attrs;
+        $tests['invalid request, missing field'][0] = ['public' => false];
+        $tests['invalid request, invalid JSON'][0] = [];
+        $tests['unathenticated'][0] = $attrs;
+        return $tests;
     }
 
     /**

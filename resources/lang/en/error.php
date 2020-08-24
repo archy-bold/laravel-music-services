@@ -21,5 +21,6 @@ return [
         'authentication' => 'Cannot authenticate :service: :message',
         'unauthorised' => 'Unauthorised: :message',
         'not-found' => 'Not found: :message',
+        'invalid-request' => 'Invalid request: :message',
     ],
 ];

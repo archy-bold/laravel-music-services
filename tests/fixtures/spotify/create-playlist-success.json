@@ -1,0 +1,39 @@
+{
+  "collaborative": false,
+  "description": "New playlist description",
+  "external_urls": {
+    "spotify": "https://open.spotify.com/playlist/02OUOzIuIE0h1zrQBFnc0n"
+  },
+  "followers": {
+    "href": null,
+    "total": 0
+  },
+  "href": "https://api.spotify.com/v1/playlists/02OUOzIuIE0h1zrQBFnc0n",
+  "id": "02OUOzIuIE0h1zrQBFnc0n",
+  "images": [],
+  "name": "New Playlist",
+  "owner": {
+    "display_name": "Simon Archer",
+    "external_urls": {
+      "spotify": "https://open.spotify.com/user/archy_bold"
+    },
+    "href": "https://api.spotify.com/v1/users/archy_bold",
+    "id": "archy_bold",
+    "type": "user",
+    "uri": "spotify:user:archy_bold"
+  },
+  "primary_color": null,
+  "public": false,
+  "snapshot_id": "MSw3ODBmN2NmNzUzYTQ4Y2VkMTA3ZWRmZTFiNzg4NWM1YzNmZGI5ZDIx",
+  "tracks": {
+    "href": "https://api.spotify.com/v1/playlists/02OUOzIuIE0h1zrQBFnc0n/tracks",
+    "items": [],
+    "limit": 100,
+    "next": null,
+    "offset": 0,
+    "previous": null,
+    "total": 0
+  },
+  "type": "playlist",
+  "uri": "spotify:playlist:02OUOzIuIE0h1zrQBFnc0n"
+}

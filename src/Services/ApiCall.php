@@ -10,10 +10,14 @@ class ApiCall
     protected $id;
     /** @var array */
     protected $options;
-    /** @string */
+    /** @var string */
     protected $cacheKey;
+    /** @var boolean */
+    protected $cacheable = true;
+    /** @var boolean */
+    protected $requiresId = true;
 
-    public function __construct($function, $id, $options = [])
+    public function __construct($function, $id = null, $options = [])
     {
         $this->function = $function;
         $this->id = $id;
@@ -61,6 +65,46 @@ class ApiCall
     public function getCacheKey()
     {
         return $this->cacheKey;
+    }
+
+    /**
+     * Get whether this call should be cached.
+     *
+     * @return boolean
+     */
+    public function isCacheable()
+    {
+        return $this->cacheable;
+    }
+
+    /**
+     * Set whether this call should be cached.
+     *
+     * @param boolan
+     */
+    public function setCacheable($cacheable)
+    {
+        $this->cacheable = $cacheable;
+    }
+
+    /**
+     * Get whether this call requires an ID.
+     *
+     * @return boolean
+     */
+    public function requiresId()
+    {
+        return $this->requiresId;
+    }
+
+    /**
+     * Set whether this call requires an ID.
+     *
+     * @param boolan
+     */
+    public function setRequiresId($requiresId)
+    {
+        $this->requiresId = $requiresId;
     }
 
     public static function generateCacheKey($function, $id, $options = [])

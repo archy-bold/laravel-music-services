@@ -96,6 +96,17 @@ interface VendorService
     public function getAllUserPlaylists($id);
 
     /**
+     * Create a playlist for the logged in user on the external service.
+     *
+     * @param array $attrs
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function createPlaylist($attrs);
+
+    /**
      * Parse the given ID, eg extract ID from url
      *
      * @param string $id
