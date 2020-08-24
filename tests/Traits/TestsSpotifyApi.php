@@ -413,6 +413,6 @@ trait TestsSpotifyApi
 
     public function readJsonTestData($filename)
     {
-        return json_decode(file_get_contents(realpath(dirname(__FILE__).'/../testdata/' . $filename)), true);
+        return json_decode(file_get_contents(realpath(dirname(__FILE__).'/../fixtures/spotify/' . $filename)), true);
     }
 }
