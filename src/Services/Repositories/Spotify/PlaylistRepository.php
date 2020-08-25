@@ -156,6 +156,17 @@ class PlaylistRepository extends ParentRepository implements RepositoryInterface
     }
 
     /**
+     * Determines if a service response from the add tracks to playlist action is successful.
+     *
+     * @param array $response
+     * @return boolean
+     */
+    protected function isAddTracksResponseSuccessful($response)
+    {
+        return isset($response['snapshot_id']);
+    }
+
+    /**
      * Function to map a Spotify album to attributes.
      *
      * @param array $album

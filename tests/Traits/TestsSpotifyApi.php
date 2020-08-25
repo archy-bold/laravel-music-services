@@ -433,6 +433,11 @@ trait TestsSpotifyApi
         return $this->readJsonTestData('create-playlist-success.json');
     }
 
+    public function getSpotifyAddPlaylistTracks()
+    {
+        return $this->readJsonTestData('add-playlist-tracks-success.json');
+    }
+
     public function readJsonTestData($filename)
     {
         return json_decode(file_get_contents(realpath(dirname(__FILE__).'/../fixtures/spotify/' . $filename)), true);

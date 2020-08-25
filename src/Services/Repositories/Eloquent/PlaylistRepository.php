@@ -12,6 +12,7 @@ use ArchyBold\LaravelMusicServices\Services\Contracts\VendorService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 abstract class PlaylistRepository extends Repository
 {
@@ -216,6 +217,38 @@ abstract class PlaylistRepository extends Repository
     }
 
     /**
+     * Add tracks to the playlist from an external vendor
+     * store ir and return the Playlist.
+     *
+     * @param string|int|\ArchyBold\LaravelMusicServices\Playlist $playlist
+     * @param \Illuminate\Support\Collection $tracks The tracks to add to the playlist
+     * @param int $position = null The zero-based position at which to add the tracks
+     * @return boolean
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function addTracks($playlist, Collection $tracks, $position = null)
+    {
+        if (is_numeric($playlist)) {
+            $playlist = $this->entity::find($playlist);
+        }
+        else if (is_string($playlist)) {
+            $id = $this->service->parseId($playlist, 'playlist');
+            $playlist = $this->entity::vendorFind($this->getVendor(), $id)->first();
+        }
+
+        if (!$playlist instanceof Playlist) {
+            throw new ModelNotFoundException(__('laravel-music-services::error.not-found'));
+        }
+
+        $this->authenticate();
+
+        // Get the track IDs.
+        $trackIds = $tracks->map->vendor_id->toArray();
+        $response = $this->service->addPlaylistTracks($playlist->vendor_id, $trackIds, $position);
+        return $this->isAddTracksResponseSuccessful($response);
+    }
+
+    /**
      * Get the vendor string eg 'spotify'
      *
      * @return string
@@ -272,6 +305,14 @@ abstract class PlaylistRepository extends Repository
      * @return array
      */
     abstract protected function mapServicePlaylistTracksToAttributes($tracks);
+
+    /**
+     * Determines if a service response from the add tracks to playlist action is successful.
+     *
+     * @param array $response
+     * @return boolean
+     */
+    abstract protected function isAddTracksResponseSuccessful($response);
 
     /**
      * Get the ISRC from a vendor track.

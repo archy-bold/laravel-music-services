@@ -110,6 +110,32 @@ class SpotifyPlaylistRepositoryTest extends PlaylistRepositoryTestCase
         ];
     }
 
+    public function addTracksFailureProvider()
+    {
+        return [
+            'null returned from addTracks' => [
+                null,
+                null,
+                null,
+            ],
+            'invalid request, invalid track uri' => [
+                new BadRequestHttpException('Invalid request: Invalid track uri: spotify:track:track1'),
+                BadRequestHttpException::class,
+                'Invalid request: Invalid track uri: spotify:track:track1',
+            ],
+            'no token' => [
+                new AuthorizationException('Unauthorised: No token provided', 401),
+                AuthorizationException::class,
+                'Unauthorised: No token provided',
+            ],
+            'unathenticated' => [
+                new AuthenticationException('Unauthenticated.'),
+                AuthenticationException::class,
+                'Unauthenticated.',
+            ],
+        ];
+    }
+
     public function createSnapshotFailureProvider()
     {
         return array_merge($this->getFailureProvider(), [
@@ -198,6 +224,11 @@ class SpotifyPlaylistRepositoryTest extends PlaylistRepositoryTestCase
             "previous" => null,
             "total" => 4
         ];
+    }
+
+    public function getAddTracksResponse()
+    {
+        return $this->getSpotifyAddPlaylistTracks();
     }
 
     public function getExamplePlaylistCsv($headings = [], $tracks = false)

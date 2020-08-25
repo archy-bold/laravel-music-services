@@ -102,4 +102,24 @@ trait InteractsWithVendor
                 ->will($this->returnValue($id));
         }
     }
+
+    protected function mockAddPlaylistTracks($args, $returns, $parseIdTimes = 1, $addPlaylistTracksTimes = 1)
+    {
+        if (is_array($returns)) {
+            $returns = $this->returnValue($returns);
+        }
+        $with = array_map(function ($arg) {
+            return $this->equalTo($arg);
+        }, $args);
+        $this->service->expects($this->exactly($addPlaylistTracksTimes))
+            ->method('addPlaylistTracks')
+            ->with(...$with)
+            ->will($returns);
+        if ($parseIdTimes > 0) {
+            $this->service->expects($this->exactly($parseIdTimes))
+                ->method('parseId')
+                ->with($this->equalTo($args[0]), $this->equalTo('playlist'))
+                ->will($this->returnValue($args[0]));
+        }
+    }
 }

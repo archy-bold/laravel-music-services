@@ -31,6 +31,7 @@ abstract class PlaylistRepositoryTestCase extends TestCase
 
     abstract public function getFailureProvider();
     abstract public function createFailureProvider();
+    abstract public function addTracksFailureProvider();
     abstract public function createSnapshotFailureProvider();
     abstract public function getExpectedPlaylist();
     abstract public function getExpectedCreatedPlaylist();
@@ -41,6 +42,7 @@ abstract class PlaylistRepositoryTestCase extends TestCase
     abstract public function getExampleCreateResponse();
     abstract public function getExampleUserPlaylistsResponse();
     abstract public function getExampleTracksResponse();
+    abstract public function getAddTracksResponse();
     abstract public function getExamplePlaylistCsv();
     abstract public function createMatchingTracks();
     abstract public function buildApiTrack($isrc);
@@ -50,7 +52,9 @@ abstract class PlaylistRepositoryTestCase extends TestCase
         parent::setUp();
 
         $auth = strpos($this->getName(), 'test_getBuilder') !== 0
-            && strpos($this->getName(), 'test_getCsv') !== 0;
+            && strpos($this->getName(), 'test_getCsv') !== 0
+            && strpos($this->getName(), 'test_addTracks_notFound') !== 0;
+
         $this->mockVendorService($auth);
     }
 
@@ -718,6 +722,114 @@ abstract class PlaylistRepositoryTestCase extends TestCase
         if (!$expectedException) {
             $this->assertNull($playlist);
         }
+    }
+
+    /**
+     * Test addTracks - succeeds.
+     *
+     * @return void
+     * @dataProvider addTracksProvider
+     */
+    public function test_addTracks($id, $position = null)
+    {
+        // Set up the data first.
+        $playlist = factory(Playlist::class)->create([
+            'id' => 100,
+            'name' => 'New Playlist',
+            'vendor' => $this->vendor,
+            'vendor_id' => 'abc123',
+        ]);
+        if ($id === 'playlist') {
+            $id = $playlist;
+        }
+        $tracks = collect([
+            factory(Track::class)->create(['vendor' => $this->vendor, 'vendor_id' => 'track1']),
+            factory(Track::class)->create(['vendor' => $this->vendor, 'vendor_id' => 'track2']),
+        ]);
+        $returns = $this->getAddTracksResponse();
+
+        // Set up the mock service
+        $args = ['abc123', ['track1', 'track2'], $position];
+        $parseIdTimes = is_string($id) ? 1 : 0;
+        $this->mockAddPlaylistTracks($args, $returns, $parseIdTimes);
+
+        // Add the tracks
+        $this->assertTrue(
+            $this->repository->addTracks($id, $tracks, $position)
+        );
+    }
+
+    public function addTracksProvider()
+    {
+        return [
+            'success - appends with id' => [100],
+            'success - appends with vendor ID' => ['abc123'],
+            'success - appends with playlist model' => ['playlist'],
+            'success - inserts with id' => [100, 5],
+            'success - inserts with vendor ID' => ['abc123', 5],
+            'success - inserts with playlist model' => ['playlist', 5],
+        ];
+    }
+
+    /**
+     * Test the addTracks function - not found exception.
+     *
+     * @return void
+     * @dataProvider addTracksNotFoundProvider
+     */
+    public function test_addTracks_notFound($id)
+    {
+        $this->expectException(ModelNotFoundException::class);
+        $this->expectExceptionMessage('Not found.');
+
+        $this->repository->addTracks($id, collect());
+    }
+
+    public function addTracksNotFoundProvider()
+    {
+        return [
+            'from id' => [100],
+            'from vendor id' => ['abc123'],
+            'from null' => [null],
+        ];
+    }
+
+    /**
+     * Test fail states of addTracks, basically passes error through.
+     *
+     * @param string $throws - The exception the `addTracksPlaylist` function will throw
+     * @param string $expectedException - The expected exception
+     * @param string $expectedExceptionMessage - The expected exception messsage
+     * @return void
+     * @dataProvider addTracksFailureProvider
+     */
+    public function test_addTracks_fails($throws, $expectedException, $expectedExceptionMessage)
+    {
+        if ($expectedException) {
+            $this->expectException($expectedException);
+            $this->expectExceptionMessage($expectedExceptionMessage);
+        }
+
+        // Set up the models.
+        $playlist = factory(Playlist::class)->create([
+            'id' => 100,
+            'name' => 'New Playlist',
+            'vendor' => $this->vendor,
+            'vendor_id' => 'abc123',
+        ]);
+        $tracks = collect([
+            factory(Track::class)->create(['vendor' => $this->vendor, 'vendor_id' => 'track1']),
+            factory(Track::class)->create(['vendor' => $this->vendor, 'vendor_id' => 'track2']),
+        ]);
+
+        // Set up the mock service
+        $return = $throws ? $this->throwException($throws) : $this->returnValue(null);
+        $args = ['abc123', ['track1', 'track2']];
+        $this->mockAddPlaylistTracks($args, $return, 0);
+
+        // Finally addTracks the playlist
+        $success = $this->repository->addTracks($playlist, $tracks);
+        $this->assertFalse($success);
     }
 
     protected function assertPlaylist($expected, $expectedUser, $playlist)
