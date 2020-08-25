@@ -243,6 +243,27 @@ class SpotifyService implements VendorService
         $call->setCacheable(false);
         $call->setRequiresId(false);
         return $this->doApiCall($call);
+    }/**
+     * Add tracks to a playlist for the logged in user on the external service.
+     *
+     * @param string $id
+     * @param array $tracks An array of the track IDs to add
+     * @param int $position = null Zero-based position of the tracks, null appends to the end.
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function addPlaylistTracks($id, $tracks, $position = null)
+    {
+        $options = [];
+        if (!is_null($position) && $position >= 0) {
+            $options['position'] = $position;
+        }
+        $call = new ApiCall('addPlaylistTracks', $id, $options);
+        $call->setSecondArgument($tracks);
+        $call->setCacheable(false);
+        return $this->doApiCall($call);
     }
 
     /**
@@ -307,7 +328,10 @@ class SpotifyService implements VendorService
         }
 
         try {
-            if ($call->requiresId()) {
+            if ($call->requiresId() && $call->hasSecondArgument()) {
+                $result = $this->api->$function($id, $call->getSecondArgument(), $options);
+            }
+            else if ($call->requiresId() && !$call->hasSecondArgument()) {
                 $result = $this->api->$function($id, $options);
             }
             else {
@@ -337,7 +361,6 @@ class SpotifyService implements VendorService
                 );
             }
             else {
-                // dd($e->getCode());
                 throw new NotFoundHttpException(
                     __('laravel-music-services::error.service.not-found', ['message' => $e->getMessage()])
                 );

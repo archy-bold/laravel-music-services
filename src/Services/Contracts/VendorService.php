@@ -107,6 +107,19 @@ interface VendorService
     public function createPlaylist($attrs);
 
     /**
+     * Add tracks to a playlist for the logged in user on the external service.
+     *
+     * @param string $id
+     * @param array $tracks An array of the track IDs to add
+     * @param int $position = null Zero-based position of the tracks, null appends to the end.
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function addPlaylistTracks($id, $tracks, $position = null);
+
+    /**
      * Parse the given ID, eg extract ID from url
      *
      * @param string $id

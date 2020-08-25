@@ -423,6 +423,12 @@ class SpotifyServiceTest extends TestCase
                 \Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class,
                 'Invalid request: Error parsing JSON.',
             ],
+            'invalid request, invalid track uri' => [
+                '',
+                new SpotifyWebAPIException('Invalid track uri: spotify:track:track1', 400),
+                \Symfony\Component\HttpKernel\Exception\BadRequestHttpException::class,
+                'Invalid request: Invalid track uri: spotify:track:track1',
+            ],
             'unathenticated' => [
                 'anything',
                 null,
@@ -810,11 +816,103 @@ class SpotifyServiceTest extends TestCase
         $filledRequest = ['name' => 'New Playlist', 'description' => 'New playlist description'];
         unset($tests['empty id']);
         unset($tests['invalid id']);
-        $tests['not found'][0] = $attrs;
-        $tests['no token'][0] = $attrs;
+        $tests['not found'][0] = $filledRequest;
+        $tests['no token'][0] = $filledRequest;
         $tests['invalid request, missing field'][0] = ['public' => false];
         $tests['invalid request, invalid JSON'][0] = [];
-        $tests['unathenticated'][0] = $attrs;
+        $tests['unathenticated'][0] = $filledRequest;
+        return $tests;
+    }
+
+    /**
+     * Test addPlaylistTracks
+     *
+     * @return void
+     * @dataProvider addPlaylistTracksProvider
+     */
+    public function test_addPlaylistTracks($args, $expectedOptions)
+    {
+        $expectedResponse = ['snapshot_id' => 'MyxmN2UyMWI5YmIxYTg3NjI3NTcwMzllZGVhM2I3Y2ZiOTQyYzk5OTFj'];
+
+        // Set up the mocks.
+        $session = $this->createMock(Session::class);
+        $api = $this->createMock(SpotifyWebAPI::class);
+        $api->expects($this->exactly(2))
+            ->method('addPlaylistTracks')
+            ->with($this->equalTo($args[0]), $this->equalTo($args[1]), $this->equalTo($expectedOptions))
+            ->will($this->returnValue($expectedResponse));
+
+        $service = new SpotifyService($session, $api);
+
+        // Get the playlist
+        $playlist = $service->addPlaylistTracks(...$args);
+
+        $this->assertEquals($expectedResponse, $playlist);
+
+        // Perform a second request to ensure the API call is not cached.
+        $playlist = $service->addPlaylistTracks(...$args);
+        $this->assertEquals($expectedResponse, $playlist);
+    }
+
+    public function addPlaylistTracksProvider()
+    {
+        return [
+            'appends tracks' => [
+                ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2']],
+                [],
+            ],
+            'inserts tracks at pos 5' => [
+                ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2'], 5],
+                ['position' => 5],
+            ],
+            'appends tracks with invalid position' => [
+                ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2'], -1],
+                [],
+            ],
+        ];
+    }
+
+    /**
+     * Test addPlaylistTracks - fails.
+     *
+     * @return void
+     * @dataProvider addPlaylistTracksFailureProvider
+     */
+    public function test_addPlaylistTracks_failure($args, $throws, $exceptionClass, $message, $setApi = true)
+    {
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($message);
+
+        // Set up the mocks.
+        $session = $this->createMock(Session::class);
+        $service = null;
+        if ($setApi) {
+            $api = $this->createMock(SpotifyWebAPI::class);
+            $api->expects($this->once())
+                ->method('addPlaylistTracks')
+                ->with($this->equalTo($args[0]), $args[1])
+                ->will($this->throwException($throws));
+
+            $service = new SpotifyService($session, $api);
+        }
+        else {
+            $service = new SpotifyService($session);
+        }
+
+        $service->addPlaylistTracks(...$args);
+    }
+
+    public function addPlaylistTracksFailureProvider()
+    {
+        $tests = $this->apiFailureProvider();
+        $args = ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2']];
+        unset($tests['empty id']);
+        unset($tests['invalid id']);
+        unset($tests['invalid request, missing field']);
+        unset($tests['invalid request, invalid JSON']);
+        foreach ($tests as &$test) {
+            $test[0] = $args;
+        }
         return $tests;
     }
 

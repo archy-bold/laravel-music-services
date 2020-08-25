@@ -10,6 +10,8 @@ class ApiCall
     protected $id;
     /** @var array */
     protected $options;
+    /** @var array */
+    protected $secondArgument;
     /** @var string */
     protected $cacheKey;
     /** @var boolean */
@@ -55,6 +57,36 @@ class ApiCall
     public function getOptions()
     {
         return $this->options;
+    }
+
+    /**
+     * Set the second argument.
+     *
+     * @param any $secondArgument
+     */
+    public function setSecondArgument($secondArgument)
+    {
+        $this->secondArgument = $secondArgument;
+    }
+
+    /**
+     * Get the secondArgument.
+     *
+     * @return any
+     */
+    public function getSecondArgument()
+    {
+        return $this->secondArgument;
+    }
+
+    /**
+     * Get whether the second argument is set.
+     *
+     * @return boolean
+     */
+    public function hasSecondArgument()
+    {
+        return isset($this->secondArgument);
     }
 
     /**
