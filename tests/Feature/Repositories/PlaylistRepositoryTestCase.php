@@ -52,6 +52,7 @@ abstract class PlaylistRepositoryTestCase extends TestCase
         parent::setUp();
 
         $auth = strpos($this->getName(), 'test_getBuilder') !== 0
+            && strpos($this->getName(), 'test_setAccessToken') !== 0
             && strpos($this->getName(), 'test_getCsv') !== 0
             && strpos($this->getName(), 'test_addTracks_notFound') !== 0;
 
@@ -68,6 +69,23 @@ abstract class PlaylistRepositoryTestCase extends TestCase
         $builder = $this->repository->getBuilder();
         $this->assertNotNull($builder);
         $this->assertInstanceOf(Builder::class, $builder);
+    }
+
+    /**
+     * Test the setAccessToken function.
+     *
+     * @return void
+     */
+    public function test_setAccessToken()
+    {
+        $this->service->expects($this->once())
+            ->method('setAccessToken')
+            ->with($this->equalTo('token'));
+        $this->repository->setAccessToken('token');
+
+        // Shouldn't authenticate when trying to
+        $this->service->expects($this->never())
+            ->method('authenticate');
     }
 
     /**
