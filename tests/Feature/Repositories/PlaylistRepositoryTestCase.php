@@ -693,7 +693,7 @@ abstract class PlaylistRepositoryTestCase extends TestCase
     /**
      * Test fail states of create, basically passes error through.
      *
-     * @param string $attrs
+     * @param array $attrs
      * @param string $expectedCreateAttrs
      * @param string $throws - The exception the `createPlaylist` function will throw
      * @param string $expectedException - The expected exception

@@ -12,14 +12,14 @@ interface PlaylistRepository extends Repository
      * Get a playlist from an external vendor, store it and return the object.
      *
      * @param string $id
-     * @return \App\Playlist
+     * @return \ArchyBold\LaravelMusicServices\Playlist
      */
     public function get($id);
 
     /**
      * Get a CSV representation of a playlist.
      *
-     * @param string|int|\App\Playlist $playlist
+     * @param string|int|\ArchyBold\LaravelMusicServices\Playlist $playlist
      * @param array $headers
      * @param array $columns
      * @param array $load = []
@@ -33,7 +33,7 @@ interface PlaylistRepository extends Repository
      * take a snapshot of the current playlist state.
      *
      * @param string $id
-     * @return \App\PlaylistSnapshot
+     * @return \ArchyBold\LaravelMusicServices\PlaylistSnapshot
      */
     public function createSnapshot($id);
 
@@ -41,7 +41,16 @@ interface PlaylistRepository extends Repository
      * Get the playlists for a user from an external vendor, store them and return the objects.
      *
      * @param string $userId
-     * @return \App\Playlist[]
+     * @return \ArchyBold\LaravelMusicServices\Playlist[]
      */
     public function getAllForUser($userId);
+
+    /**
+     * Create a playlist for the logged-in user for an external vendor,
+     * store ir and return the Playlist.
+     *
+     * @param array $attrs
+     * @return \ArchyBold\LaravelMusicServices\Playlist
+     */
+    public function create($attrs);
 }

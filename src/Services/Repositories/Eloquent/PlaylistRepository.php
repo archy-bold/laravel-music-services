@@ -202,7 +202,7 @@ abstract class PlaylistRepository extends Repository
      * Create a playlist for the logged-in user for an external vendor,
      * store ir and return the Playlist.
      *
-     * @param string $attrs
+     * @param array $attrs
      * @return \ArchyBold\LaravelMusicServices\Playlist
      */
     public function create($attrs)
