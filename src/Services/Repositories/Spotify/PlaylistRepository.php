@@ -46,6 +46,20 @@ class PlaylistRepository extends ParentRepository implements RepositoryInterface
     }
 
     /**
+     * Map attributes to the playlist attributes for the service.
+     *
+     * @param array $playlist
+     * - string name Required. Name of the playlist.
+     * - string description Required. Description of the playlist.
+     * - boolean public Optional. Whether the playlist should be public or not.
+     * @return array
+     */
+    protected function mapAttributesToToServicePlaylist($playlist)
+    {
+        return collect($playlist)->only('name', 'description', 'public')->toArray();
+    }
+
+    /**
      * Maps the vendor playlist to a PlaylistSnapshot attributes array.
      *
      * @param array $playlist

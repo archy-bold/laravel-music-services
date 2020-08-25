@@ -199,6 +199,23 @@ abstract class PlaylistRepository extends Repository
     }
 
     /**
+     * Create a playlist for the logged-in user for an external vendor,
+     * store ir and return the Playlist.
+     *
+     * @param string $attrs
+     * @return \ArchyBold\LaravelMusicServices\Playlist
+     */
+    public function create($attrs)
+    {
+        $this->authenticate();
+
+        // Create the playlist
+        $attrs = $this->mapAttributesToToServicePlaylist($attrs);
+        $playlist = $this->service->createPlaylist($attrs);
+        return $this->createModels($playlist);
+    }
+
+    /**
      * Get the vendor string eg 'spotify'
      *
      * @return string
@@ -212,6 +229,17 @@ abstract class PlaylistRepository extends Repository
      * @return array
      */
     abstract protected function mapServicePlaylistToAttributes($playlist);
+
+    /**
+     * Map attributes to the playlist attributes for the service.
+     *
+     * @param array $playlist
+     * - string name Required. Name of the playlist.
+     * - string description Required. Description of the playlist.
+     * - boolean public Optional. Whether the playlist should be public or not.
+     * @return array
+     */
+    abstract protected function mapAttributesToToServicePlaylist($playlist);
 
     /**
      * Maps the service playlist to a PlaylistSnapshot attributes array.

@@ -9,6 +9,23 @@ trait TestsSpotifyApi
         return $this->getExpectedUserPlaylists()[0];
     }
 
+    public function getExpectedCreatedPlaylist()
+    {
+        return [
+            'name' => 'New Playlist',
+            'url' => 'https://open.spotify.com/playlist/02OUOzIuIE0h1zrQBFnc0n',
+            'vendor' => 'spotify',
+            'vendor_id' => '02OUOzIuIE0h1zrQBFnc0n',
+            'public' => false,
+            'description' => 'New playlist description',
+            'owner_id' => null,
+            'meta' => [
+                'collaborative' => false,
+                'images' => [],
+            ],
+        ];
+    }
+
     public function getExpectedUser()
     {
         return [
@@ -409,6 +426,11 @@ trait TestsSpotifyApi
     public function getSpotifyAudioFeatures()
     {
         return $this->readJsonTestData('get-audio-features-success.json');
+    }
+
+    public function getSpotifyCreatePlaylist()
+    {
+        return $this->readJsonTestData('create-playlist-success.json');
     }
 
     public function readJsonTestData($filename)

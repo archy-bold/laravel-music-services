@@ -10,6 +10,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SpotifyPlaylistRepositoryTest extends PlaylistRepositoryTestCase
@@ -60,6 +61,48 @@ class SpotifyPlaylistRepositoryTest extends PlaylistRepositoryTestCase
             ],
             'unathenticated' => [
                 'anything',
+                new AuthenticationException('Unauthenticated.'),
+                AuthenticationException::class,
+                'Unauthenticated.',
+            ],
+        ];
+    }
+
+    public function createFailureProvider()
+    {
+        $attrs = ['name' => 'New Playlist', 'description' => 'New playlist description', 'public' => false];
+        return [
+            'null returned from createPlaylist' => [
+                $attrs,
+                $this->getExpectedCreateAttrs(),
+                null,
+                null,
+                null,
+            ],
+            'invalid request, missing field' => [
+                ['public' => false],
+                ['public' => false],
+                new BadRequestHttpException('Invalid request: Missing required field: name'),
+                BadRequestHttpException::class,
+                'Invalid request: Missing required field: name',
+            ],
+            'no token' => [
+                $attrs,
+                $this->getExpectedCreateAttrs(),
+                new AuthorizationException('Unauthorised: No token provided', 401),
+                AuthorizationException::class,
+                'Unauthorised: No token provided',
+            ],
+            'invalid request, invalid JSON (empty)' => [
+                [],
+                [],
+                new BadRequestHttpException('Invalid request: Error parsing JSON.'),
+                BadRequestHttpException::class,
+                'Invalid request: Error parsing JSON.',
+            ],
+            'unathenticated' => [
+                $attrs,
+                $this->getExpectedCreateAttrs(),
                 new AuthenticationException('Unauthenticated.'),
                 AuthenticationException::class,
                 'Unauthenticated.',
@@ -120,6 +163,20 @@ class SpotifyPlaylistRepositoryTest extends PlaylistRepositoryTestCase
     public function getExampleResponse()
     {
         return $this->getSpotifyPlaylist();
+    }
+
+    public function getExpectedCreateAttrs()
+    {
+        return [
+            'name' => 'New Playlist',
+            'description' => 'New playlist description',
+            'public' => false,
+        ];
+    }
+
+    public function getExampleCreateResponse()
+    {
+        return $this->getSpotifyCreatePlaylist();
     }
 
     public function getExampleUserPlaylistsResponse()

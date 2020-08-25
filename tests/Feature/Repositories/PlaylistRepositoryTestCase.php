@@ -30,11 +30,15 @@ abstract class PlaylistRepositoryTestCase extends TestCase
     protected $getsIsrcFromPlaylist = true;
 
     abstract public function getFailureProvider();
+    abstract public function createFailureProvider();
     abstract public function createSnapshotFailureProvider();
     abstract public function getExpectedPlaylist();
+    abstract public function getExpectedCreatedPlaylist();
     abstract public function getExpectedPlaylistSnapshot();
     abstract public function getExpectedPlaylistTracks();
     abstract public function getExampleResponse();
+    abstract public function getExpectedCreateAttrs();
+    abstract public function getExampleCreateResponse();
     abstract public function getExampleUserPlaylistsResponse();
     abstract public function getExampleTracksResponse();
     abstract public function getExamplePlaylistCsv();
@@ -126,7 +130,7 @@ abstract class PlaylistRepositoryTestCase extends TestCase
                     'name' => '',
                     'meta' => [],
                     'url' => null,
-                    'vendor' => 'spotify',
+                    'vendor' => $this->vendor,
                     'vendor_id' => null,
                 ],
             ],
@@ -137,6 +141,35 @@ abstract class PlaylistRepositoryTestCase extends TestCase
                 true,
             ],
         ];
+    }
+
+    /**
+     * Test fail states of get, basically passes error through.
+     *
+     * @param string $id
+     * @param string $throws - The exception the `getPlaylist` function will throw
+     * @param string $expectedException - The expected exception
+     * @param string $expectedExceptionMessage - The expected exception messsage
+     * @return void
+     * @dataProvider getFailureProvider
+     */
+    public function test_get_fails($id, $throws, $expectedException, $expectedExceptionMessage)
+    {
+        if ($expectedException) {
+            $this->expectException($expectedException);
+            $this->expectExceptionMessage($expectedExceptionMessage);
+        }
+
+        // Set up the mock service
+        $return = $throws ? $this->throwException($throws) : $this->returnValue(null);
+        $this->mockGetPlaylist($id, $return);
+
+        // Finally get the playlist
+        $playlist = $this->repository->get($id);
+
+        if (!$expectedException) {
+            $this->assertNull($playlist);
+        }
     }
 
     /**
@@ -278,35 +311,6 @@ abstract class PlaylistRepositoryTestCase extends TestCase
             'from vendor id' => ['abc123'],
             'from null' => [null],
         ];
-    }
-
-    /**
-     * Test fail states of get, basically passes error through.
-     *
-     * @param string $id
-     * @param string $throws - The exception the `getPlaylist` function will throw
-     * @param string $expectedException - The expected exception
-     * @param string $expectedExceptionMessage - The expected exception messsage
-     * @return void
-     * @dataProvider getFailureProvider
-     */
-    public function test_get_fails($id, $throws, $expectedException, $expectedExceptionMessage)
-    {
-        if ($expectedException) {
-            $this->expectException($expectedException);
-            $this->expectExceptionMessage($expectedExceptionMessage);
-        }
-
-        // Set up the mock service
-        $return = $throws ? $this->throwException($throws) : $this->returnValue(null);
-        $this->mockGetPlaylist($id, $return);
-
-        // Finally get the playlist
-        $playlist = $this->repository->get($id);
-
-        if (!$expectedException) {
-            $this->assertNull($playlist);
-        }
     }
 
     /**
@@ -605,6 +609,111 @@ abstract class PlaylistRepositoryTestCase extends TestCase
 
         // Finally get the playlist
         $playlist = $this->repository->getAllForUser($id);
+
+        if (!$expectedException) {
+            $this->assertNull($playlist);
+        }
+    }
+
+    /**
+     * Test create - succeeds.
+     *
+     * @return void
+     * @dataProvider createProvider
+     */
+    public function test_create($attrs, $expectedCreateAttrs, $returns, $expected, $expectedUser, $userExists = false)
+    {
+        // If we're checking for updates, create the existing playlist
+        $user = null;
+        if ($userExists) {
+            $user = factory(User::class)->create([
+                'vendor' => $this->vendor,
+                'vendor_id' => $expectedUser['vendor_id'],
+            ]);
+        }
+
+        // Set up the mock service
+        $this->mockCreatePlaylist($expectedCreateAttrs, $returns);
+
+        // Get the playlist
+        $playlist = $this->repository->create($attrs);
+
+        // Assert it's as expected.
+        $this->assertPlaylist($expected, $expectedUser, $playlist);
+
+        // And that the existing was updated
+        if ($userExists) {
+            $this->assertEquals($user->id, $playlist->owner->id);
+        }
+    }
+
+    public function createProvider()
+    {
+        return [
+            'success' => [
+                ['name' => 'New Playlist', 'description' => 'New playlist description', 'public' => false],
+                $this->getExpectedCreateAttrs(),
+                $this->getExampleCreateResponse(),
+                $this->getExpectedCreatedPlaylist(),
+                $this->getExpectedUser(),
+            ],
+            'success - empty' => [
+                [],
+                [],
+                ['foo' => 'bar'],
+                [
+                    'name' => '',
+                    'url' => null,
+                    'vendor' => $this->vendor,
+                    'vendor_id' => '',
+                    'public' => null,
+                    'description' => null,
+                    'meta' => [],
+                    'owner_id' => null,
+                ],
+                [
+                    'name' => '',
+                    'meta' => [],
+                    'url' => null,
+                    'vendor' => $this->vendor,
+                    'vendor_id' => null,
+                ],
+            ],
+            'success - updates' => [
+                ['name' => 'New Playlist', 'description' => 'New playlist description', 'public' => false],
+                $this->getExpectedCreateAttrs(),
+                $this->getExampleCreateResponse(),
+                $this->getExpectedCreatedPlaylist(),
+                $this->getExpectedUser(),
+                true,
+            ],
+        ];
+    }
+
+    /**
+     * Test fail states of create, basically passes error through.
+     *
+     * @param string $attrs
+     * @param string $expectedCreateAttrs
+     * @param string $throws - The exception the `createPlaylist` function will throw
+     * @param string $expectedException - The expected exception
+     * @param string $expectedExceptionMessage - The expected exception messsage
+     * @return void
+     * @dataProvider createFailureProvider
+     */
+    public function test_create_fails($attrs, $expectedCreateAttrs, $throws, $expectedException, $expectedExceptionMessage)
+    {
+        if ($expectedException) {
+            $this->expectException($expectedException);
+            $this->expectExceptionMessage($expectedExceptionMessage);
+        }
+
+        // Set up the mock service
+        $return = $throws ? $this->throwException($throws) : $this->returnValue(null);
+        $this->mockCreatePlaylist($expectedCreateAttrs, $return);
+
+        // Finally create the playlist
+        $playlist = $this->repository->create($attrs);
 
         if (!$expectedException) {
             $this->assertNull($playlist);

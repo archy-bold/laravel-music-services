@@ -44,6 +44,17 @@ trait InteractsWithVendor
         }
     }
 
+    protected function mockCreatePlaylist($attrs, $returns, $createPlaylistTimes = 1)
+    {
+        if (is_array($returns)) {
+            $returns = $this->returnValue($returns);
+        }
+        $this->service->expects($this->exactly($createPlaylistTimes))
+            ->method('createPlaylist')
+            ->with($this->equalTo($attrs))
+            ->will($returns);
+    }
+
     protected function mockGetAllPlaylistTracks($id, $returns, $getAllPlaylistTracksTimes = 1)
     {
         if (is_array($returns)) {
