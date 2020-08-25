@@ -27,7 +27,7 @@ abstract class PlaylistRepository extends Repository
      *
      * @var VendorService $service
      */
-    public $service;
+    protected $service;
 
     /** @var boolean */
     protected $authenticated = false;
@@ -47,6 +47,17 @@ abstract class PlaylistRepository extends Repository
             $this->service->authenticate();
             $this->authenticated = true;
         }
+    }
+
+    /**
+     * Overrride the vendor access token, don't authenticate.
+     *
+     * @return void
+     */
+    public function setAccessToken($token)
+    {
+        $this->service->setAccessToken($token);
+        $this->authenticated = true;
     }
 
     /**
