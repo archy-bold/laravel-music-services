@@ -8,9 +8,9 @@ use Faker\Generator as Faker;
 $factory->define(Album::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence,
+        'artists' => $faker->company,
+        'upc' => $faker->randomNumber(8, true),
         'release_date' => $faker->date,
-        'release_date_str' => $faker->date,
-        'release_date_precision' => 'day',
         'url' => $faker->url,
         'vendor' => 'spotify',
         'vendor_id' => $faker->uuid,

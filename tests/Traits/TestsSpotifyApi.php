@@ -53,9 +53,9 @@ trait TestsSpotifyApi
                 'artists' => 'Frankie Knuckles, Jamie Principle',
                 'album' => [
                     'name' => 'Four Most Cuts Presents - Frankie Knuckles vs. Mr Fingers',
+                    'artists' => 'Frankie Knuckles, Mr. Fingers',
+                    'upc' => null,
                     'release_date' => '1987-06-01',
-                    'release_date_str' => '1987',
-                    'release_date_precision' => 'year',
                     'meta' => [
                         'available_markets' => ['AD', 'AE', 'AL', 'AR', 'AT', 'AU', 'BA', 'BE', 'BG', 'BH', 'BO', 'BR', 'BY', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HR', 'HU', 'ID', 'IE', 'IL', 'IS', 'IT', 'JO', 'JP', 'KW', 'KZ', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MD', 'ME', 'MK', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'RS', 'RU', 'SA', 'SE', 'SG', 'SI', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'UA', 'US', 'UY', 'VN', 'XK', 'ZA'],
                         'images' => [
@@ -75,6 +75,8 @@ trait TestsSpotifyApi
                                 'url' => 'https://i.scdn.co/image/ab67616d00004851e71c53b1e7e74ddcaa427755',
                             ],
                         ],
+                        'release_date' => '1987',
+                        'release_date_precision' => 'year',
                     ],
                     'url' => 'https://open.spotify.com/album/1OM6ULzT778hgqBI4stbFR',
                     'vendor' => 'spotify',
@@ -104,9 +106,9 @@ trait TestsSpotifyApi
                 'artists' => 'Marvin Gaye',
                 'album' => [
                     'name' => 'I Heard It Through The Grapevine / In The Groove (Stereo)',
+                    'artists' => 'Marvin Gaye',
+                    'upc' => null,
                     'release_date' => '1969-08-26',
-                    'release_date_str' => '1969-08-26',
-                    'release_date_precision' => 'day',
                     'meta' => [
                         'available_markets' => [],
                         'images' => [
@@ -126,6 +128,8 @@ trait TestsSpotifyApi
                                 'url' => 'https://i.scdn.co/image/ab67616d0000485160f5e8d519591d51e533e822',
                             ],
                         ],
+                        'release_date' => '1969-08-26',
+                        'release_date_precision' => 'day',
                     ],
                     'url' => 'https://open.spotify.com/album/1jcnZvZWvAGzNyQ7GNVy8X',
                     'vendor' => 'spotify',
@@ -155,9 +159,9 @@ trait TestsSpotifyApi
                 'artists' => 'King Floyd',
                 'album' => [
                     'name' => 'We Are Marshall Soundtrack',
+                    'artists' => 'Various Artists',
+                    'upc' => null,
                     'release_date' => '2007-09-15',
-                    'release_date_str' => '2007-09',
-                    'release_date_precision' => 'month',
                     'meta' => [
                         'available_markets' => [],
                         'images' => [
@@ -177,6 +181,8 @@ trait TestsSpotifyApi
                                 'url' => 'https://i.scdn.co/image/ab67616d00004851be2528999e9ae5c1928ae8b2',
                             ],
                         ],
+                        'release_date' => '2007-09',
+                        'release_date_precision' => 'month',
                     ],
                     'url' => 'https://open.spotify.com/album/72gsfXVb92BPzas9adrQ1x',
                     'vendor' => 'spotify',
@@ -206,9 +212,9 @@ trait TestsSpotifyApi
                 'artists' => 'Prince',
                 'album' => [
                     'name' => 'Raspberry Beret / She\'s Always In My Hair',
+                    'artists' => 'Prince',
+                    'upc' => null,
                     'release_date' => '1985-01-01',
-                    'release_date_str' => '1985-01-01',
-                    'release_date_precision' => 'day',
                     'meta' => [
                         'available_markets' => ['AD', 'AE', 'AL', 'AR', 'AT', 'AU', 'BA', 'BE', 'BG', 'BH', 'BO', 'BR', 'BY', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HR', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'KZ', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MD', 'ME', 'MK', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'RS', 'RU', 'SA', 'SE', 'SG', 'SI', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'UA', 'US', 'UY', 'VN', 'XK', 'ZA'],
                         'images' => [
@@ -228,6 +234,8 @@ trait TestsSpotifyApi
                                 'url' => 'https://i.scdn.co/image/ab67616d000048515b2718419ed80b4da4b1b96f',
                             ],
                         ],
+                        'release_date' => '1985-01-01',
+                        'release_date_precision' => 'day',
                     ],
                     'url' => 'https://open.spotify.com/album/2mteIXvdn40yXE54VXncCY',
                     'vendor' => 'spotify',

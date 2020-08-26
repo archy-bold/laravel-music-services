@@ -67,9 +67,9 @@ class CreateMusicServicesTables extends Migration
         Schema::create($tableNames['albums'], function (Blueprint $table) use ($tableNames) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->text('artists');
+            $table->string('upc', 25)->nullable()->index();
             $table->date('release_date');
-            $table->string('release_date_str', 10);
-            $table->string('release_date_precision', 10);
             $table->json('meta')->nullable();
             $table->string('url')->nullable();
             $table->string('vendor', 25);
