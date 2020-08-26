@@ -83,7 +83,7 @@ class CreateMusicServicesTables extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('artists');
-            $table->string('isrc')->nullable();
+            $table->string('isrc', 25)->nullable()->index();
             $table->json('meta')->nullable();
             $table->string('url')->nullable();
             $table->string('vendor', 25);
