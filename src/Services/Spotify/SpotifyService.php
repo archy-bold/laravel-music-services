@@ -105,6 +105,20 @@ class SpotifyService implements VendorService
     }
 
     /**
+     * Retrieve an album from the external service.
+     *
+     * @param string $id
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function getAlbum($id)
+    {
+        $call = new ApiCall('getAlbum', $id);
+        return $this->doApiCall($call);
+    }
+
+    /**
      * Retrieve a playlist from the external service.
      *
      * @param string $id
@@ -313,6 +327,9 @@ class SpotifyService implements VendorService
             }
             else if (strpos($function, 'getTrack') === 0 || strpos($function, 'getAudioFeatures') === 0) {
                 $type = 'track';
+            }
+            else if (strpos($function, 'getAlbum') === 0) {
+                $type = 'album';
             }
             else if (strpos($function, 'getUserPlaylists') === 0) {
                 $type = 'user';

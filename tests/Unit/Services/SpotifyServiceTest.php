@@ -320,6 +320,71 @@ class SpotifyServiceTest extends TestCase
     }
 
     /**
+     * Test getAlbum
+     *
+     * @return void
+     * @dataProvider getAlbumProvider
+     */
+    public function test_getAlbum($id, $expectedId)
+    {
+        $expectedTrack = ['id' => '3135556', 'title' => 'Joy as an Act of Resistance'];
+
+        // Set up the mocks.
+        $session = $this->createMock(Session::class);
+        $api = $this->createMock(SpotifyWebAPI::class);
+        $api->expects($this->once())
+            ->method('getAlbum')
+            ->with($this->equalTo($expectedId))
+            ->will($this->returnValue($expectedTrack));
+
+        $service = new SpotifyService($session, $api);
+
+        // Get the track
+        $track = $service->getAlbum($id);
+
+        $this->assertEquals($expectedTrack, $track);
+
+        // Perform a second request to ensure the API is only hit once.
+        $track = $service->getAlbum($id);
+        $this->assertEquals($expectedTrack, $track);
+    }
+
+    public function getAlbumProvider()
+    {
+        return $this->getParseIdTests('album');
+    }
+
+    /**
+     * Test getAlbum - fails.
+     *
+     * @return void
+     * @dataProvider apiFailureProvider
+     */
+    public function test_getAlbum_failure($id, $throws, $exceptionClass, $message, $setApi = true)
+    {
+        $this->expectException($exceptionClass);
+        $this->expectExceptionMessage($message);
+
+        // Set up the mocks.
+        $session = $this->createMock(Session::class);
+        $service = null;
+        if ($setApi) {
+            $api = $this->createMock(SpotifyWebAPI::class);
+            $api->expects($this->once())
+                ->method('getAlbum')
+                ->with($this->equalTo($id))
+                ->will($this->throwException($throws));
+
+            $service = new SpotifyService($session, $api);
+        }
+        else {
+            $service = new SpotifyService($session);
+        }
+
+        $service->getAlbum($id);
+    }
+
+    /**
      * Test getPlaylist
      *
      * @return void
@@ -1006,6 +1071,16 @@ class SpotifyServiceTest extends TestCase
                 'spotify:user:archy_bold',
                 'user',
                 'archy_bold',
+            ],
+            'standard album id' => [
+                '19DAgMGSIyeUBEm6a9MTNg',
+                'album',
+                '19DAgMGSIyeUBEm6a9MTNg',
+            ],
+            'standard album uri' => [
+                'spotify:album:19DAgMGSIyeUBEm6a9MTNg',
+                'album',
+                '19DAgMGSIyeUBEm6a9MTNg',
             ],
             'album url' => [
                 'https://open.spotify.com/album/19DAgMGSIyeUBEm6a9MTNg?si=9vJkxdbaQhC2ZYtxl8gx8A',

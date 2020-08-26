@@ -43,6 +43,16 @@ interface VendorService
     public function getTrackAudioFeatures($id);
 
     /**
+     * Retrieve an album from the external service.
+     *
+     * @param string $id
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function getAlbum($id);
+
+    /**
      * Retrieve a playlist from the external service.
      *
      * @param string $id
