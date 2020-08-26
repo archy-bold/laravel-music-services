@@ -29,7 +29,23 @@ abstract class TrackRepositoryTestCase extends TestCase
     {
         parent::setUp();
 
-        $this->mockVendorService($this->getName() != 'test_getBuilder');
+        $auth = strpos($this->getName(), 'test_getBuilder') !== 0
+            && strpos($this->getName(), 'test_instance') !== 0;
+
+        $this->mockVendorService($auth);
+    }
+
+    /**
+     * Check the app provider gives the instance.
+     *
+     * @return void
+     */
+    public function test_instance()
+    {
+        $className = get_class($this->repository);
+        $repo = $this->app->make($className);
+        $this->assertNotNull($repo);
+        $this->assertInstanceOf($className, $repo);
     }
 
     /**
