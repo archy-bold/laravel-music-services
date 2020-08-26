@@ -27,99 +27,111 @@ trait InteractsWithVendor
             ->will($this->returnValueMap($map));
     }
 
-    protected function mockGetPlaylist($id, $returns, $parseIdTimes = 1, $getPlaylistTimes = 1)
+    protected function mockGetPlaylist($id, $returns, $parseIdTimes = 1, $times = 1)
     {
-        if (is_array($returns)) {
-            $returns = $this->returnValue($returns);
-        }
-        $this->service->expects($this->exactly($getPlaylistTimes))
-            ->method('getPlaylist')
-            ->with($this->equalTo($id))
-            ->will($returns);
-        if ($parseIdTimes > 0) {
-            $this->service->expects($this->exactly($parseIdTimes))
-                ->method('parseId')
-                ->with($this->equalTo($id), $this->equalTo('playlist'))
-                ->will($this->returnValue($id));
-        }
+        $this->mockVendorFunction('getPlaylist', [
+            'id' => $id,
+            'type' => 'playlist',
+            'returns' => $returns,
+            'times' => $times,
+            'parse_id_times' => $parseIdTimes,
+        ]);
     }
 
-    protected function mockCreatePlaylist($attrs, $returns, $createPlaylistTimes = 1)
+    protected function mockCreatePlaylist($attrs, $returns, $times = 1)
     {
-        if (is_array($returns)) {
-            $returns = $this->returnValue($returns);
-        }
-        $this->service->expects($this->exactly($createPlaylistTimes))
-            ->method('createPlaylist')
-            ->with($this->equalTo($attrs))
-            ->will($returns);
+        $this->mockVendorFunction('createPlaylist', [
+            'id' => $attrs,
+            'returns' => $returns,
+            'times' => $times,
+        ]);
     }
 
-    protected function mockGetAllPlaylistTracks($id, $returns, $getAllPlaylistTracksTimes = 1)
+    protected function mockGetAllPlaylistTracks($id, $returns, $times = 1)
     {
-        if (is_array($returns)) {
-            $returns = $this->returnValue($returns);
-        }
-        $this->service->expects($this->exactly($getAllPlaylistTracksTimes))
-            ->method('getAllPlaylistTracks')
-            ->with($this->equalTo($id))
-            ->will($returns);
+        $this->mockVendorFunction('getAllPlaylistTracks', [
+            'id' => $id,
+            'returns' => $returns,
+            'times' => $times,
+        ]);
     }
 
-    protected function mockGetAllUserPlaylists($userId, $returns, $parseIdTimes = 1, $getPlaylistTimes = 1)
+    protected function mockGetAllUserPlaylists($userId, $returns, $parseIdTimes = 1, $times = 1)
     {
+        $this->mockVendorFunction('getAllUserPlaylists', [
+            'id' => $userId,
+            'type' => 'user',
+            'returns' => $returns,
+            'times' => $times,
+            'parse_id_times' => $parseIdTimes,
+        ]);
+    }
+
+    protected function mockGetTrackAudioFeatures($id, $returns, $parseIdTimes = 1, $times = 1)
+    {
+        $this->mockVendorFunction('getTrackAudioFeatures', [
+            'id' => $id,
+            'type' => 'track',
+            'returns' => $returns,
+            'times' => $times,
+            'parse_id_times' => $parseIdTimes,
+        ]);
+    }
+
+    protected function mockGetAlbum($id, $returns, $parseIdTimes = 1, $times = 1)
+    {
+        $this->mockVendorFunction('getAlbum', [
+            'id' => $id,
+            'type' => 'album',
+            'returns' => $returns,
+            'times' => $times,
+            'parse_id_times' => $parseIdTimes,
+        ]);
+    }
+
+    protected function mockAddPlaylistTracks($args, $returns, $parseIdTimes = 1, $times = 1)
+    {
+        $this->mockVendorFunction('addPlaylistTracks', [
+            'id' => $args[0],
+            'args' => $args,
+            'type' => 'playlist',
+            'returns' => $returns,
+            'times' => $times,
+            'parse_id_times' => $parseIdTimes,
+        ]);
+    }
+
+    protected function mockVendorFunction($function, $options)
+    {
+        $id = $options['id'] ?? '';
+        $type = $options['type'] ?? '';
+        $returns = $options['returns'] ?? null;
+        $functionTimes = $options['times'] ?? 1;
+        $parseIdTimes = $options['parse_id_times'] ?? 0;
+        $with = [$this->equalTo($id)];
+
+        // If there are multiple arguments
+        if (isset($options['args'])) {
+            $with = array_map(function ($arg) {
+                return $this->equalTo($arg);
+            }, $options['args']);
+        }
+
         if (is_array($returns)) {
             $returns = $this->returnValue($returns);
         }
         if (is_null($returns)) {
             $returns = $this->returnValue(null);
         }
-        $this->service->expects($this->exactly($getPlaylistTimes))
-            ->method('getAllUserPlaylists')
-            ->with($this->equalTo($userId))
-            ->will($returns);
-        if ($parseIdTimes > 0) {
-            $this->service->expects($this->exactly($parseIdTimes))
-                ->method('parseId')
-                ->with($this->equalTo($userId), $this->equalTo('user'))
-                ->will($this->returnValue($userId));
-        }
-    }
-
-    protected function mockGetTrackAudioFeatures($id, $returns, $parseIdTimes = 1, $getTrackAudioFeaturesTimes = 1)
-    {
-        if (is_array($returns)) {
-            $returns = $this->returnValue($returns);
-        }
-        $this->service->expects($this->exactly($getTrackAudioFeaturesTimes))
-            ->method('getTrackAudioFeatures')
-            ->with($this->equalTo($id))
-            ->will($returns);
-        if ($parseIdTimes > 0) {
-            $this->service->expects($this->exactly($parseIdTimes))
-                ->method('parseId')
-                ->with($this->equalTo($id), $this->equalTo('track'))
-                ->will($this->returnValue($id));
-        }
-    }
-
-    protected function mockAddPlaylistTracks($args, $returns, $parseIdTimes = 1, $addPlaylistTracksTimes = 1)
-    {
-        if (is_array($returns)) {
-            $returns = $this->returnValue($returns);
-        }
-        $with = array_map(function ($arg) {
-            return $this->equalTo($arg);
-        }, $args);
-        $this->service->expects($this->exactly($addPlaylistTracksTimes))
-            ->method('addPlaylistTracks')
+        $this->service->expects($this->exactly($functionTimes))
+            ->method($function)
             ->with(...$with)
             ->will($returns);
         if ($parseIdTimes > 0) {
             $this->service->expects($this->exactly($parseIdTimes))
                 ->method('parseId')
-                ->with($this->equalTo($args[0]), $this->equalTo('playlist'))
-                ->will($this->returnValue($args[0]));
+                ->with($this->equalTo($id), $this->equalTo($type))
+                ->will($this->returnValue($id));
         }
     }
 }

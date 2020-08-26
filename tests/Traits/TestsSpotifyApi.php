@@ -394,6 +394,47 @@ trait TestsSpotifyApi
         ];
     }
 
+    public function getExpectedAlbum()
+    {
+        return [
+            'name' => 'Cuddles Please EP',
+            'artists' => 'Self Esteem',
+            'upc' => '00602508945762',
+            'type' => 'single',
+            'release_date' => '2020-05-01',
+            'meta' => [
+                'popularity' => 18,
+                'release_date' => '2020-05-01',
+                'release_date_precision' => 'day',
+                'images' => [
+                    [
+                        'height' => 640,
+                        'width' => 640,
+                        'url' => 'https://i.scdn.co/image/ab67616d0000b2731bd923ef0757315ae64bed86',
+                    ],
+                    [
+                        'height' => 300,
+                        'width' => 300,
+                        'url' => 'https://i.scdn.co/image/ab67616d00001e021bd923ef0757315ae64bed86',
+                    ],
+                    [
+                        'height' => 64,
+                        'width' => 64,
+                        'url' => 'https://i.scdn.co/image/ab67616d000048511bd923ef0757315ae64bed86',
+                    ],
+                ],
+                'available_markets' => ['AD', 'AE', 'AL', 'AR', 'AT', 'AU', 'BA', 'BE', 'BG', 'BH', 'BO', 'BR', 'BY', 'CA', 'CH', 'CL', 'CO', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ES', 'FI', 'FR', 'GB', 'GR', 'GT', 'HK', 'HN', 'HR', 'HU', 'ID', 'IE', 'IL', 'IN', 'IS', 'IT', 'JO', 'JP', 'KW', 'KZ', 'LB', 'LI', 'LT', 'LU', 'LV', 'MA', 'MC', 'MD', 'ME', 'MK', 'MT', 'MX', 'MY', 'NI', 'NL', 'NO', 'NZ', 'OM', 'PA', 'PE', 'PH', 'PL', 'PS', 'PT', 'PY', 'QA', 'RO', 'RS', 'RU', 'SA', 'SE', 'SG', 'SI', 'SK', 'SV', 'TH', 'TN', 'TR', 'TW', 'UA', 'US', 'UY', 'VN', 'XK', 'ZA'],
+                'genres' => [],
+                'label' => 'Fiction',
+                'c_copyright' => '© 2020 Universal Music Operations Limited',
+                'p_copyright' => '℗ 2020 Universal Music Operations Limited',
+            ],
+            'url' => 'https://open.spotify.com/album/2zXmwG7DmMsIslZmKQ9Pg0',
+            'vendor' => 'spotify',
+            'vendor_id' => '2zXmwG7DmMsIslZmKQ9Pg0',
+        ];
+    }
+
     public function getSpotifyPlaylist()
     {
         return $this->readJsonTestData('get-playlist-success.json');
@@ -448,6 +489,11 @@ trait TestsSpotifyApi
     public function getSpotifyAddPlaylistTracks()
     {
         return $this->readJsonTestData('add-playlist-tracks-success.json');
+    }
+
+    public function getSpotifyAlbum()
+    {
+        return $this->readJsonTestData('get-album-success.json');
     }
 
     public function readJsonTestData($filename)

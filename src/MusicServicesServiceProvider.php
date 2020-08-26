@@ -4,6 +4,7 @@ namespace ArchyBold\LaravelMusicServices;
 
 use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\PlaylistRepository as SpotifyPlaylistRepository;
 use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\TrackRepository as SpotifyTrackRepository;
+use ArchyBold\LaravelMusicServices\Services\Repositories\Spotify\AlbumRepository as SpotifyAlbumRepository;
 use ArchyBold\LaravelMusicServices\Services\Spotify\SpotifyService;
 use Illuminate\Support\ServiceProvider;
 
@@ -97,6 +98,11 @@ class MusicServicesServiceProvider extends ServiceProvider
         });
         $this->app->bind(SpotifyTrackRepository::class, function ($app) {
             return new SpotifyTrackRepository(
+                $app->make(SpotifyService::class)
+            );
+        });
+        $this->app->bind(SpotifyAlbumRepository::class, function ($app) {
+            return new SpotifyAlbumRepository(
                 $app->make(SpotifyService::class)
             );
         });

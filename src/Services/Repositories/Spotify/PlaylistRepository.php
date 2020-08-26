@@ -174,45 +174,7 @@ class PlaylistRepository extends ParentRepository implements RepositoryInterface
      */
     protected function mapAlbumToAttrs($album)
     {
-        // Collect the artists
-        $artists = null;
-        if (array_key_exists('artists', $album)) {
-            $artists = array_map(function ($artist) {
-                return $artist['name'] ?? '';
-            }, $album['artists']);
-            $artists = implode(', ', $artists);
-        }
-
-        $retval = [
-            'name' => $album['name'] ?? '',
-            'artists' => $artists,
-            'upc' => null,
-            'type' => $album['album_type'] ?? 'album',
-            'release_date' => null,
-            'meta' => collect($album)->only([
-                'release_date',
-                'release_date_precision',
-                'images',
-                'available_markets',
-            ])->toArray(),
-            'url' => $album['external_urls']['spotify'] ?? null,
-            'vendor' => $this->getVendor(),
-            'vendor_id' => $album['id'] ?? null,
-        ];
-        if (isset($retval['meta']['release_date_precision'])) {
-            switch ($retval['meta']['release_date_precision']) {
-                case 'day':
-                    $retval['release_date'] = $retval['meta']['release_date'];
-                    break;
-                case 'month':
-                    $retval['release_date'] = $retval['meta']['release_date'] . '-15';
-                    break;
-                case 'year':
-                    $retval['release_date'] = $retval['meta']['release_date'] . '-06-01';
-                    break;
-            }
-        }
-        return $retval;
+        return AlbumRepository::mapServiceAlbumToAttributes($album);
     }
 
     /**

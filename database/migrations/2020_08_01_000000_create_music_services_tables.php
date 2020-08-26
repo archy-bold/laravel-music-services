@@ -70,7 +70,7 @@ class CreateMusicServicesTables extends Migration
             $table->text('artists');
             $table->string('type');
             $table->string('upc', 25)->nullable()->index();
-            $table->date('release_date');
+            $table->date('release_date')->nullable();
             $table->json('meta')->nullable();
             $table->string('url')->nullable();
             $table->string('vendor', 25);

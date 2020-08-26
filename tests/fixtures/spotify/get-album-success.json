@@ -1,0 +1,164 @@
+{
+  "album_type" : "single",
+  "artists" : [ {
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/artist/3K9muOlJVKLgH4SIwwZiDe"
+    },
+    "href" : "https://api.spotify.com/v1/artists/3K9muOlJVKLgH4SIwwZiDe",
+    "id" : "3K9muOlJVKLgH4SIwwZiDe",
+    "name" : "Self Esteem",
+    "type" : "artist",
+    "uri" : "spotify:artist:3K9muOlJVKLgH4SIwwZiDe"
+  } ],
+  "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+  "copyrights" : [ {
+    "text" : "© 2020 Universal Music Operations Limited",
+    "type" : "C"
+  }, {
+    "text" : "℗ 2020 Universal Music Operations Limited",
+    "type" : "P"
+  } ],
+  "external_ids" : {
+    "upc" : "00602508945762"
+  },
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/album/2zXmwG7DmMsIslZmKQ9Pg0"
+  },
+  "genres" : [ ],
+  "href" : "https://api.spotify.com/v1/albums/2zXmwG7DmMsIslZmKQ9Pg0",
+  "id" : "2zXmwG7DmMsIslZmKQ9Pg0",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://i.scdn.co/image/ab67616d0000b2731bd923ef0757315ae64bed86",
+    "width" : 640
+  }, {
+    "height" : 300,
+    "url" : "https://i.scdn.co/image/ab67616d00001e021bd923ef0757315ae64bed86",
+    "width" : 300
+  }, {
+    "height" : 64,
+    "url" : "https://i.scdn.co/image/ab67616d000048511bd923ef0757315ae64bed86",
+    "width" : 64
+  } ],
+  "label" : "Fiction",
+  "name" : "Cuddles Please EP",
+  "popularity" : 18,
+  "release_date" : "2020-05-01",
+  "release_date_precision" : "day",
+  "total_tracks" : 4,
+  "tracks" : {
+    "href" : "https://api.spotify.com/v1/albums/2zXmwG7DmMsIslZmKQ9Pg0/tracks?offset=0&limit=50",
+    "items" : [ {
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/3K9muOlJVKLgH4SIwwZiDe"
+        },
+        "href" : "https://api.spotify.com/v1/artists/3K9muOlJVKLgH4SIwwZiDe",
+        "id" : "3K9muOlJVKLgH4SIwwZiDe",
+        "name" : "Self Esteem",
+        "type" : "artist",
+        "uri" : "spotify:artist:3K9muOlJVKLgH4SIwwZiDe"
+      } ],
+      "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+      "disc_number" : 1,
+      "duration_ms" : 216218,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/1mwJIMzxThvsTbYIWf4Z15"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/1mwJIMzxThvsTbYIWf4Z15",
+      "id" : "1mwJIMzxThvsTbYIWf4Z15",
+      "is_local" : false,
+      "name" : "Favourite Problem - Alternative Version",
+      "preview_url" : "https://p.scdn.co/mp3-preview/a2cfe906ce79a6429aefc4c1453367b75a7ca6cd?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number" : 1,
+      "type" : "track",
+      "uri" : "spotify:track:1mwJIMzxThvsTbYIWf4Z15"
+    }, {
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/3K9muOlJVKLgH4SIwwZiDe"
+        },
+        "href" : "https://api.spotify.com/v1/artists/3K9muOlJVKLgH4SIwwZiDe",
+        "id" : "3K9muOlJVKLgH4SIwwZiDe",
+        "name" : "Self Esteem",
+        "type" : "artist",
+        "uri" : "spotify:artist:3K9muOlJVKLgH4SIwwZiDe"
+      } ],
+      "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+      "disc_number" : 1,
+      "duration_ms" : 238977,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/3as9Gd04Ap7ZUhn2n367cz"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/3as9Gd04Ap7ZUhn2n367cz",
+      "id" : "3as9Gd04Ap7ZUhn2n367cz",
+      "is_local" : false,
+      "name" : "The Best - Alternative Version",
+      "preview_url" : "https://p.scdn.co/mp3-preview/64a2516996bf11fca9866be5897d9048195957b7?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number" : 2,
+      "type" : "track",
+      "uri" : "spotify:track:3as9Gd04Ap7ZUhn2n367cz"
+    }, {
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/3K9muOlJVKLgH4SIwwZiDe"
+        },
+        "href" : "https://api.spotify.com/v1/artists/3K9muOlJVKLgH4SIwwZiDe",
+        "id" : "3K9muOlJVKLgH4SIwwZiDe",
+        "name" : "Self Esteem",
+        "type" : "artist",
+        "uri" : "spotify:artist:3K9muOlJVKLgH4SIwwZiDe"
+      } ],
+      "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+      "disc_number" : 1,
+      "duration_ms" : 185482,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/36JcNgzcDCzKkm5kRAFkLh"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/36JcNgzcDCzKkm5kRAFkLh",
+      "id" : "36JcNgzcDCzKkm5kRAFkLh",
+      "is_local" : false,
+      "name" : "In Time - Alternative Version",
+      "preview_url" : "https://p.scdn.co/mp3-preview/1e27153b9479d14f709fa046f7cceafe09ac1290?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number" : 3,
+      "type" : "track",
+      "uri" : "spotify:track:36JcNgzcDCzKkm5kRAFkLh"
+    }, {
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/3K9muOlJVKLgH4SIwwZiDe"
+        },
+        "href" : "https://api.spotify.com/v1/artists/3K9muOlJVKLgH4SIwwZiDe",
+        "id" : "3K9muOlJVKLgH4SIwwZiDe",
+        "name" : "Self Esteem",
+        "type" : "artist",
+        "uri" : "spotify:artist:3K9muOlJVKLgH4SIwwZiDe"
+      } ],
+      "available_markets" : [ "AD", "AE", "AL", "AR", "AT", "AU", "BA", "BE", "BG", "BH", "BO", "BR", "BY", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "DZ", "EC", "EE", "EG", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HR", "HU", "ID", "IE", "IL", "IN", "IS", "IT", "JO", "JP", "KW", "KZ", "LB", "LI", "LT", "LU", "LV", "MA", "MC", "MD", "ME", "MK", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "OM", "PA", "PE", "PH", "PL", "PS", "PT", "PY", "QA", "RO", "RS", "RU", "SA", "SE", "SG", "SI", "SK", "SV", "TH", "TN", "TR", "TW", "UA", "US", "UY", "VN", "XK", "ZA" ],
+      "disc_number" : 1,
+      "duration_ms" : 166211,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/4moSARiHVnf7CNlFL6dptO"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/4moSARiHVnf7CNlFL6dptO",
+      "id" : "4moSARiHVnf7CNlFL6dptO",
+      "is_local" : false,
+      "name" : "Miami Memory - Cover",
+      "preview_url" : "https://p.scdn.co/mp3-preview/c78cc03957f8bfb5a17f35e61a98ff0f875f04c9?cid=774b29d4f13844c495f206cafdad9c86",
+      "track_number" : 4,
+      "type" : "track",
+      "uri" : "spotify:track:4moSARiHVnf7CNlFL6dptO"
+    } ],
+    "limit" : 50,
+    "next" : null,
+    "offset" : 0,
+    "previous" : null,
+    "total" : 4
+  },
+  "type" : "album",
+  "uri" : "spotify:album:2zXmwG7DmMsIslZmKQ9Pg0"
+}
