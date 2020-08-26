@@ -308,7 +308,7 @@ class SpotifyService implements VendorService
         // Ensure the ID is as expected
         if ($call->requiresId()) {
             $type = null;
-            if (strpos($function, 'getPlaylist') === 0) {
+            if (strpos($function, 'getPlaylist') === 0 || strpos($function, 'addPlaylistTracks') === 0) {
                 $type = 'playlist';
             }
             else if (strpos($function, 'getTrack') === 0 || strpos($function, 'getAudioFeatures') === 0) {

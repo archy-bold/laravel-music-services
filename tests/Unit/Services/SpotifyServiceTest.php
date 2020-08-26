@@ -830,7 +830,7 @@ class SpotifyServiceTest extends TestCase
      * @return void
      * @dataProvider addPlaylistTracksProvider
      */
-    public function test_addPlaylistTracks($args, $expectedOptions)
+    public function test_addPlaylistTracks($args, $expectedArgs)
     {
         $expectedResponse = ['snapshot_id' => 'MyxmN2UyMWI5YmIxYTg3NjI3NTcwMzllZGVhM2I3Y2ZiOTQyYzk5OTFj'];
 
@@ -839,7 +839,7 @@ class SpotifyServiceTest extends TestCase
         $api = $this->createMock(SpotifyWebAPI::class);
         $api->expects($this->exactly(2))
             ->method('addPlaylistTracks')
-            ->with($this->equalTo($args[0]), $this->equalTo($args[1]), $this->equalTo($expectedOptions))
+            ->with($this->equalTo($expectedArgs[0]), $this->equalTo($expectedArgs[1]), $this->equalTo($expectedArgs[2]))
             ->will($this->returnValue($expectedResponse));
 
         $service = new SpotifyService($session, $api);
@@ -856,20 +856,23 @@ class SpotifyServiceTest extends TestCase
 
     public function addPlaylistTracksProvider()
     {
-        return [
-            'appends tracks' => [
-                ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2']],
-                [],
-            ],
+        $tests = $this->getParseIdTests('playlist');
+        foreach ($tests as &$test) {
+            $test[0] = [$test[0], ['track1', 'track2']];
+            $test[1] = [$test[2], ['track1', 'track2'], []];
+            unset($test[2]);
+            $test = array_values($test);
+        }
+        return array_merge($tests, [
             'inserts tracks at pos 5' => [
                 ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2'], 5],
-                ['position' => 5],
+                ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2'], ['position' => 5]],
             ],
             'appends tracks with invalid position' => [
                 ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2'], -1],
-                [],
+                ['5JAwxqaNRxz5Ztw8YQREWx', ['track1', 'track2'], []],
             ],
-        ];
+        ]);
     }
 
     /**
