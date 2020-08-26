@@ -54,6 +54,7 @@ trait TestsSpotifyApi
                 'album' => [
                     'name' => 'Four Most Cuts Presents - Frankie Knuckles vs. Mr Fingers',
                     'artists' => 'Frankie Knuckles, Mr. Fingers',
+                    'type' => 'album',
                     'upc' => null,
                     'release_date' => '1987-06-01',
                     'meta' => [
@@ -107,6 +108,7 @@ trait TestsSpotifyApi
                 'album' => [
                     'name' => 'I Heard It Through The Grapevine / In The Groove (Stereo)',
                     'artists' => 'Marvin Gaye',
+                    'type' => 'album',
                     'upc' => null,
                     'release_date' => '1969-08-26',
                     'meta' => [
@@ -160,6 +162,7 @@ trait TestsSpotifyApi
                 'album' => [
                     'name' => 'We Are Marshall Soundtrack',
                     'artists' => 'Various Artists',
+                    'type' => 'compilation',
                     'upc' => null,
                     'release_date' => '2007-09-15',
                     'meta' => [
@@ -213,6 +216,7 @@ trait TestsSpotifyApi
                 'album' => [
                     'name' => 'Raspberry Beret / She\'s Always In My Hair',
                     'artists' => 'Prince',
+                    'type' => 'single',
                     'upc' => null,
                     'release_date' => '1985-01-01',
                     'meta' => [

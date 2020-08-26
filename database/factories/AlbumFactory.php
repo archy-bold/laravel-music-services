@@ -9,6 +9,7 @@ $factory->define(Album::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence,
         'artists' => $faker->company,
+        'type' => 'album',
         'upc' => $faker->randomNumber(8, true),
         'release_date' => $faker->date,
         'url' => $faker->url,

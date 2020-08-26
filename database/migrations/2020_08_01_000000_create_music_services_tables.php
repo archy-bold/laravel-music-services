@@ -68,6 +68,7 @@ class CreateMusicServicesTables extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('artists');
+            $table->string('type');
             $table->string('upc', 25)->nullable()->index();
             $table->date('release_date');
             $table->json('meta')->nullable();

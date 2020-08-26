@@ -187,6 +187,7 @@ class PlaylistRepository extends ParentRepository implements RepositoryInterface
             'name' => $album['name'] ?? '',
             'artists' => $artists,
             'upc' => null,
+            'type' => $album['album_type'] ?? 'album',
             'release_date' => null,
             'meta' => collect($album)->only([
                 'release_date',
